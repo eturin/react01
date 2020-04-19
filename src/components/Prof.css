@@ -1,0 +1,18 @@
+.prof-wrapper{
+    display: grid;
+    grid-template-areas:
+            "prof-avatar prof-name"
+            "prof-avatar prof-birthday"
+            "prof-avatar prof-city"
+            "prof-avatar prof-edu"
+            "prof-avatar prof-site";
+    grid-template-rows: 4fr 3fr 3fr 3fr 3fr;
+    grid-template-columns: 150px auto;
+}
+.prof-avatar{
+    grid-row: 1 / 6;
+}
+.prof img{
+    width: 150px;
+    height: 150px;
+}
