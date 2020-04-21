@@ -1,7 +1,7 @@
 import React from "react";
 import cls from './ProfileContent.module.css'
-import Prof from "./Prof";
-import Posts from "./Posts";
+import Prof from "./Prof/Prof";
+import Posts from "./Posts/Posts";
 
 const ProfileContent=()=>{
     return (

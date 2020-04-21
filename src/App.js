@@ -1,8 +1,8 @@
 import React from 'react';
 import cls from './App.module.css'
-import HeaderAll from "./components/Header";
-import NavBar from "./components/NavBar";
-import ProfileContent from "./components/ProfileContent";
+import HeaderAll from "./components/Header/Header";
+import NavBar from "./components/NavBar/NavBar";
+import ProfileContent from "./components/ProfileContent/ProfileContent";
 
 const  App = () => {
   return (

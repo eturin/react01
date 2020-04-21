@@ -1,0 +1,15 @@
+.NewPost{
+    border: antiquewhite;
+    border-style: dotted;
+    display: grid;
+    grid-template:
+    "t b" ;
+    grid-template-columns: auto 150px;
+}
+
+.NewPost textarea{
+    grid-area: t;
+}
+.NewPost botton{
+    grid-area: b;
+}
