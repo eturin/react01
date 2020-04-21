@@ -1,8 +1,8 @@
-.Header-wrapper {
+.Header {
     grid-area: h;
     background-color: darkcyan;
 }
-.Header-wrapper img{
+.Header img{
     margin-top:  5px;
     width: 40px;
     height: 40px;

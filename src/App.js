@@ -1,15 +1,15 @@
 import React from 'react';
-import './App.css'
-import Header from "./components/Header";
-import Nav from "./components/Nav";
+import cls from './App.module.css'
+import HeaderAll from "./components/Header";
+import NavBar from "./components/NavBar";
 import ProfileContent from "./components/ProfileContent";
 
 const  App = () => {
   return (
-      <div className='app-wraper'>
-          <Header/>
-          <Nav/>
-          <ProfileContent/>
+      <div className={cls.App}>
+          <HeaderAll className={cls.HeaderAll}/>
+          <NavBar className={cls.NavBar}/>
+          <ProfileContent className={cls.ProfileContent}/>
       </div>
   );
 }

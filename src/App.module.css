@@ -1,5 +1,4 @@
-.app-wraper{
-
+.App{
   display: grid;
   grid-template-areas:
   "h h"
@@ -7,18 +6,11 @@
   grid-template-rows: 50px 1fr;
   grid-template-columns: 1fr 10fr;
   /*grid-gap: 10px;*/
+  margin: 0 auto;
+  width: 98%;
 }
 
 
-Header{
-  grid-area: h;
-}
-Nav {
-  grid-area: n;
-}
-ProfileContent {
-  grid-area: c;
-}
 
 
 

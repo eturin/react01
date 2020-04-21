@@ -1,8 +1,8 @@
 import React from "react";
-import './Header.css'
+import cls from './Header.module.css'
 
 const Header = ()=>{
-    return <div className='Header-wrapper'><img src='/logo.png' /></div>
+    return <div className={cls.Header}><img src='/logo.png' /></div>
 }
 
 export default Header;

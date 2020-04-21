@@ -1,0 +1,37 @@
+.Prof{
+    display: grid;
+    grid-template-areas:
+            "a n"
+            "a b"
+            "a c"
+            "a e"
+            "a s";
+    grid-template-rows: 4fr 3fr 3fr 3fr 3fr;
+    grid-template-columns: 150px auto;
+}
+.Prof{
+    grid-row: 1 / 6;
+}
+.Avatar{
+    grid-area: a;
+}
+.Avatar img{
+    width: 150px;
+    height: 150px;
+}
+.Name{
+    grid-area: n;
+}
+.Birthday{
+    grid-area: b;
+}
+.City{
+    grid-area: c;
+}
+.Edu{
+    grid-area: e;
+}
+.Site{
+    grid-area: s;
+}
+

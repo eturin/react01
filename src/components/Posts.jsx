@@ -1,8 +1,8 @@
 import React from "react";
-import './Posts.css'
+import cls from './Posts.module.css'
 
 const Posts = ()=>{
-    return <div className='Posts-wraper'>Посты</div>
+    return <div>Посты</div>
 }
 
 export default Posts;

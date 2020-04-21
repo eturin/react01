@@ -1,9 +1,9 @@
 import React from "react";
-import './Nav.css'
+import cls from './NavBar.module.css'
 
-const Nav= ()=> {
+const NavBar= ()=> {
     return (
-        <div className='Nav-wrapper'>
+        <div className={cls.NavBar}>
             <div><a href="#1">Профиль</a></div>
             <div><a href="#2">Сообщения</a></div>
             <div><a href="#3">Новости</a></div>
@@ -12,4 +12,4 @@ const Nav= ()=> {
         </div>);
 }
 
-export default Nav;
+export default NavBar;

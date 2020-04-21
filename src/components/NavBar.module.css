@@ -1,0 +1,11 @@
+.NavBar{
+    margin-top: 3px;
+    background: burlywood;
+    grid-area: n;
+}
+.NavBar div{
+    margin-left: 5px;
+}
+.NavBar a{
+    color: azure;
+}
