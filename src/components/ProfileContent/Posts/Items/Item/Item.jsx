@@ -1,12 +1,12 @@
 import React from "react";
 import cls from './Item.module.css'
 
-const Item = ()=>{
+const Item = (props)=>{
     return (
         <div className={cls.Item}>
-            <dev className={cls.Avatar}><img src="ava.jpeg" /></dev>
-            <div className={cls.Text}>Отдельный пост</div>
-            <div className={cls.Control}><span>like</span></div>
+            <dev className={cls.Avatar}><img src={props.img} /></dev>
+            <div className={cls.Text}>{props.text}</div>
+            <div className={cls.Control}><span>like</span> <span className={cls.LikeCnt}>{props.cnt}</span></div>
         </div>
     );
 }

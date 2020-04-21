@@ -8,12 +8,6 @@ const Posts = ()=>{
         <div>
             <NewPost />
             <Items />
-            <Items />
-            <Items />
-            <Items />
-            <Items />
-            <Items />
-            <Items />
         </div>
     );
 }
