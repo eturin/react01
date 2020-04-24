@@ -5,7 +5,7 @@ const NewPost = ()=>{
     return (
         <div className={cls.NewPost}>
             <textarea></textarea>
-            <button>Добавить</button>
+            <button className={cls.Botton}>Добавить</button>
         </div>
     );
 }

@@ -1,6 +1,7 @@
 .Header {
     grid-area: h;
     background-color: darkcyan;
+    border-radius: 5px;
 }
 .Header img{
     margin-top:  5px;
