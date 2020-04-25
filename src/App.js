@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter} from "react-router-dom"
 import {Route} from "react-router"
 import cls from './App.module.css'
-import HeaderAll from "./components/Header/Header";
+import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
 import ProfileContent from "./components/ProfileContent/ProfileContent";
 import Dialogs from "./components/Dialogs/Dialogs";
@@ -14,7 +14,7 @@ const App = (props) => {
     return (
         <BrowserRouter>
             <div className={cls.App}>
-                <HeaderAll className={cls.HeaderAll}/>
+                <Header className={cls.HeaderAll}/>
                 <NavBar className={cls.NavBar}/>
                 <div className={cls.Content}>
                     <Route path='/profile' component={ProfileContent}/>
