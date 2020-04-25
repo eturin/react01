@@ -6,7 +6,7 @@ const Item  = (props)=>{
     return(
         <div className={cls.Item} >
             <img className={cls.Img} src={props.img} />
-            <NavLink className={cls.A} to={'/dialogs/'+props.id} activeClassName={cls.ActiveLink}>{props.name}</NavLink>
+            <NavLink className={cls.A} to={'/dialogs/'+props.id+'?id='+props.id} activeClassName={cls.ActiveLink}>{props.name}</NavLink>
         </div>
     );
 }

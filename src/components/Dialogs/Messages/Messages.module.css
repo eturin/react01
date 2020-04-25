@@ -1,0 +1,11 @@
+.Messages{
+    grid-area: m;
+    padding: 10px;
+    border-radius: 5px;
+    border: darkgrey;
+    border-style: solid;
+    margin-left: 3px;
+}
+.Messages span{
+    font-weight: bold;
+}
