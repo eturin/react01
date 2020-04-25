@@ -12,10 +12,10 @@ const Dialogs = (props) => {
             <div className={cls.Dialogs}>
                 <div className={cls.Names}>
                     <span>Беседы</span>
-                    <ItemDialog name="Димыч" url='/dialogs/d'/>
-                    <ItemDialog name="Андрей" url='/dialogs/a'/>
-                    <ItemDialog name="Света" url='/dialogs/s'/>
-                    <ItemDialog name="Валера" url='/dialogs/v'/>
+                    <ItemDialog name="Димыч"  id='d' img='/ava.jpeg' />
+                    <ItemDialog name="Андрей" id='a' img='/ava2.jpeg'/>
+                    <ItemDialog name="Света"  id='s' img='/ava.jpeg'/>
+                    <ItemDialog name="Валера" id='v' img='/ava2.jpeg'/>
                 </div>
 
                 <Route path='/dialogs/d'>

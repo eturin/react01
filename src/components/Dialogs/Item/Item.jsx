@@ -2,10 +2,11 @@ import React from "react";
 import cls from './Item.module.css'
 import {NavLink} from "react-router-dom";
 
-const Item  = (prop)=>{
+const Item  = (props)=>{
     return(
         <div className={cls.Item} >
-            <NavLink to={prop.url} activeClassName={cls.ActiveLink}>{prop.name}</NavLink>
+            <img className={cls.Img} src={props.img} />
+            <NavLink className={cls.A} to={'/dialogs/'+props.id} activeClassName={cls.ActiveLink}>{props.name}</NavLink>
         </div>
     );
 }
