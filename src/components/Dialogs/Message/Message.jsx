@@ -1,12 +1,12 @@
 import React from "react";
-import cls from './Message.module.css'
+import css from './Message.module.css'
+
 
 const Message = (props)=>{
     return (
-        <div className={cls.Item} id={props.id}>
-            <div className={cls.Avatar}><img src={props.img} /></div>
-            <div className={cls.Text}>{props.text}</div>
-            <div className={cls.Control}><span>like</span> <span className={cls.LikeCnt}>{props.cnt}</span></div>
+        <div className={props.my!=true ? css.ItemOver : css.ItemMy} id={props.id}>
+            <div className={css.Avatar}><img src={props.img} /></div>
+            <div className={props.my!=true ? css.TextOther : css.TextMy}>{props.text}</div>
         </div>
     );
 }
