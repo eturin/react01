@@ -1,17 +1,19 @@
 .NavBar{
-    padding: 20px;
+    grid-area: n;
     margin-top: 3px;
     background: burlywood;
-    grid-area: n;
     border-radius: 5px;
 }
-.NavBar div{
+.Menu{
+    padding: 20px;
+}
+.Menu div{
     margin-left: 5px;
 }
-.NavBar a{
+.Menu a{
     color: azure;
     text-decoration: none;
 }
-.NavBar a.ActiveLink{
+.Menu a.ActiveLink{
     color: black;
 }

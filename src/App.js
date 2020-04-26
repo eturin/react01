@@ -15,9 +15,9 @@ const App = (props) => {
         <BrowserRouter>
             <div className={cls.App}>
                 <Header className={cls.HeaderAll}/>
-                <NavBar className={cls.NavBar}/>
+                <NavBar className={cls.NavBar} state={props.state.NavBar}/>
                 <div className={cls.Content}>
-                    <Route path='/profile'  render={() => <ProfileContent mPosts={props.mPosts}/>}/>
+                    <Route path='/profile'  render={() => <ProfileContent state={props.state.ProfileContentPage}/>}/>
                     <Route path='/dialogs'  render={() => <Dialogs />}/>
                     <Route path='/news'     render={News}/>
                     <Route path='/musics'   render={Musics}/>

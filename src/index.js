@@ -3,16 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-const mPosts=[
-    {id:0,text:'123',img:'ava.jpeg' ,cnt:10},
-    {id:1,text:'321',img:'ava2.jpeg',cnt:2 },
-    {id:2,text:'456',img:'ava.jpeg' ,cnt:0 },
-    {id:3,text:'654',img:'ava2.jpeg',cnt:-5}
-];
+import { state } from './state'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App mPosts={mPosts}/>
+    <App state={state}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
