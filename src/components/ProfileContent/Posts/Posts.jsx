@@ -3,11 +3,11 @@ import cls from './Posts.module.css'
 import NewPost from './New/NewPost'
 import Items from './Items/Items'
 
-const Posts = ()=>{
+const Posts = (props)=>{
     return (
         <div>
             <NewPost />
-            <Items />
+            <Items mPosts={props.mPosts}/>
         </div>
     );
 }
