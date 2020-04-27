@@ -1,5 +1,5 @@
 import React from "react";
-import cls from './Musics.module.css'
+import css from './Musics.module.css'
 
 const Musics = () => {
     return (

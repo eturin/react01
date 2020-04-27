@@ -1,12 +1,13 @@
 import React from "react";
-import cls from './Items.module.css'
+import css from './Items.module.css'
 import Item from '../Item/Item'
 
 const Items=(props)=>{
-    let mJSXPosts = props.mPosts.map(x => <Item text={x.text} img={x.img} cnt={x.cnt} id={x.id}/>);
+    props.mPosts.sort((a,b)=>{ return b.id-a.id;});
+    let mJSXPosts = props.mPosts.map(x => <Item  text={x.text} img={x.img} cnt={x.cnt} id={x.id}/>);
 
     return (
-        <div className>
+        <div>
             { mJSXPosts }
         </div>
     );

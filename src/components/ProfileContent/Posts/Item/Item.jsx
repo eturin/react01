@@ -1,12 +1,12 @@
 import React from "react";
-import cls from './Item.module.css'
+import css from './Item.module.css'
 
 const Item = (props)=>{
     return (
-        <div className={cls.Item} id={props.id}>
-            <div className={cls.Avatar}><img src={props.img} /></div>
-            <div className={cls.Text}>{props.text}</div>
-            <div className={cls.Control}><span>like</span> <span className={cls.LikeCnt}>{props.cnt}</span></div>
+        <div className={css.Item} id={props.id}>
+            <div className={css.Avatar}><img src={props.img} /></div>
+            <div className={css.Text}>{props.text}</div>
+            <div className={css.Control}><span>like</span> <span className={css.LikeCnt}>{props.cnt}</span></div>
         </div>
     );
 }

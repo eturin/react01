@@ -1,5 +1,5 @@
 import React from "react";
-import cls from './Settings.module.css'
+import css from './Settings.module.css'
 
 const Settings = () => {
     return (

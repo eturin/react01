@@ -1,7 +1,7 @@
 import React from "react";
 import {BrowserRouter} from "react-router-dom"
 import {Route} from "react-router"
-import cls from './Dialogs.module.css'
+import css from './Dialogs.module.css'
 import ItemDialog from "./Item/Item";
 import Messages from "./Messages/Messages";
 
@@ -13,8 +13,8 @@ const Dialogs = (props) => {
     );
 
     return (
-            <div className={cls.Dialogs}>
-                <div className={cls.Names}>
+            <div className={css.Dialogs}>
+                <div className={css.Names}>
                     <span>Беседы</span>
                     { mJSXPeople }
                 </div>

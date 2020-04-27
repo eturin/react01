@@ -1,14 +1,14 @@
 import React from "react";
-import cls from './ProfileContent.module.css'
+import css from './ProfileContent.module.css'
 import Prof from "./Prof/Prof";
 import Posts from "./Posts/Posts";
 
 const ProfileContent=(props)=>{
     return (
-        <div className={cls.ProfileContent}>
-            <div className={cls.ContentHeader}><img src='16.jpg'/></div>
+        <div className={css.ProfileContent}>
+            <div className={css.ContentHeader}><img src='16.jpg'/></div>
             <Prof />
-            <Posts mPosts={props.state.mPosts}/>
+            <Posts state={props.state} />
         </div>);
 }
 

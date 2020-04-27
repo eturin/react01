@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter} from "react-router-dom"
 import {Route} from "react-router"
-import cls from './App.module.css'
+import css from './App.module.css'
 import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
 import ProfileContent from "./components/ProfileContent/ProfileContent";
@@ -13,10 +13,10 @@ import News from "./components/News/News";
 const App = (props) => {
     return (
         <BrowserRouter>
-            <div className={cls.App}>
-                <Header className={cls.HeaderAll}/>
-                <NavBar className={cls.NavBar} state={props.state.NavBar}/>
-                <div className={cls.Content}>
+            <div className={css.App}>
+                <Header />
+                <NavBar state={props.state.NavBar}/>
+                <div className={css.Content}>
                     <Route path='/profile'  render={() => <ProfileContent state={props.state.ProfileContentPage}/>}/>
                     <Route path='/dialogs'  render={() => <Dialogs state={props.state.DialogsPage}/>}/>
                     <Route path='/news'     render={News}/>
