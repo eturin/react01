@@ -7,7 +7,9 @@ const Posts = (props)=>{
     const [v, f] = useState([]);
     return (
         <div>
-            <NewPost state={{v:v,f:f}} fAddPost={props.state.fAddPost}/>
+            <NewPost state={{reloadPosts:{v:v,f:f},
+                                fAddPost:props.state.fAddPost,
+                                 newPost:props.state.newPost}}/>
             <Items mPosts={props.state.mPosts}/>
         </div>
     );
