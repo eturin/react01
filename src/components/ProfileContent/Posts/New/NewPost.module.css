@@ -10,6 +10,7 @@
     grid-area: t;
     border-radius: 10px;
     border-color: darkcyan;
+    padding: 5px;
 }
 .Button{
     grid-area: b;
