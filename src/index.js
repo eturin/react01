@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { store } from './state'
+import { dispatch } from './store'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App store={store}/>
+    <App dispatch={dispatch}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

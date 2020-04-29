@@ -1,6 +1,5 @@
 import React from "react";
 import css from './Prof.module.css';
-//console.log(cls);
 
 const Prof = ()=>{
     return (
