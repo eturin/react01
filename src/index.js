@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { state } from './state'
+import { store } from './state'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App state={state}/>
+    <App store={store}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

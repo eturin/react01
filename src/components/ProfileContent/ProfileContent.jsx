@@ -8,7 +8,7 @@ const ProfileContent=(props)=>{
         <div className={css.ProfileContent}>
             <div className={css.ContentHeader}><img src='16.jpg'/></div>
             <Prof />
-            <Posts state={props.state} />
+            <Posts store={props.store} />
         </div>);
 }
 

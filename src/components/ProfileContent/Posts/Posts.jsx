@@ -5,12 +5,11 @@ import Items from './Items/Items'
 
 const Posts = (props)=>{
     const [v, f] = useState([]);
+
     return (
         <div>
-            <NewPost state={{reloadPosts:{v:v,f:f},
-                                fAddPost:props.state.fAddPost,
-                                 newPost:props.state.newPost}}/>
-            <Items mPosts={props.state.mPosts}/>
+            <NewPost reloadPosts={{v:v,f:f}} store={props.store} fAdd={props.store.fAddPost} getText={props.store.getPostText} setText={props.store.setPostText}/>
+            <Items store={props.store}/>
         </div>
     );
 }
