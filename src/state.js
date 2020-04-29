@@ -46,37 +46,37 @@ export const store = {
         _state: state,
         getState() { return this._state; },
         getAva() {  return this._state.ProfileContentPage.ava; },
-        setPostText(text) { state.ProfileContentPage.textOfNewPost = text; },
-        getPostText()  { return state.ProfileContentPage.textOfNewPost; },
+        setPostText(text) { this._state.ProfileContentPage.textOfNewPost = text; },
+        getPostText()  { return this._state.ProfileContentPage.textOfNewPost; },
         fAddPost() {
-            let mPosts=store.getPosts();
+            let mPosts=this.getPosts();
             mPosts.push(
                 {
                     id  : mPosts.length,
-                    text: store.getPostText(),
-                    img : store.getAva(),
+                    text: this.getPostText(),
+                    img : this.getAva(),
                     cnt : 0
             });
-            store.setPostText('');
+            this.setPostText('');
         },
-        setMessageText(text) { state.DialogsPage.textOfNewPost = text;},
-        getMessageText(text) { return state.DialogsPage.textOfNewPost; },
+        setMessageText(text) { this._state.DialogsPage.textOfNewPost = text;},
+        getMessageText(text) { return this._state.DialogsPage.textOfNewPost; },
         setId(id) { this._state.DialogsPage.id = id; },
-        getId(id) { return this._state.DialogsPage.id; },
+        getId() { return this._state.DialogsPage.id; },
         fAddMessage()  {
-            let mMessages=store.getMessages();
+            let mMessages=this.getMessages();
             mMessages.push(
                 {
                     id  : mMessages.length,
                     my  : true,
-                    text: store.getMessageText(),
-                    img : store.getAva()
+                    text: this.getMessageText(),
+                    img : this.getAva()
             });
-            state.DialogsPage.mKey[store.getId()].push(mMessages.length - 1);
-            store.setMessageText('');
+            this.getState().DialogsPage.mKey[this.getId()].push(mMessages.length - 1);
+            this.setMessageText('');
         },
         getFriends() { return this._state.NavBar.FriendsPage.mFriends; },
-        getPosts() { return state.ProfileContentPage.mPosts; },
+        getPosts() { return this._state.ProfileContentPage.mPosts; },
         getPeoples() { return this._state.DialogsPage.mPeople; },
         getKeys(id) { return this._state.DialogsPage.mKey[id]; },
         getMessage(id) { return this._state.DialogsPage.mMessage[id]; },

@@ -13,7 +13,7 @@ const Messages = (props) =>{
         <div className={css.Messages}>
             <span>Сообщения</span>
             { mJSXMessages }
-            <NewPost reloadPosts={{v:v,f:f}} fAdd={props.store.fAddMessage} getText={props.store.getMessageText} setText={props.store.setMessageText} />
+            <NewPost reloadPosts={{v:v,f:f}} store={props.store} fAdd={props.store.fAddMessage} getText={props.store.getMessageText} setText={props.store.setMessageText} />
         </div>
     );
 };
