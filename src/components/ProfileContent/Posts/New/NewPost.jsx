@@ -6,20 +6,20 @@ const NewPost = (props)=>{
     const refText = React.createRef();
 
     const onClick_ButtonAdd = () => {
-        props.fAdd.call(props.store);
+        props.fAdd();
         props.reloadPosts.f(props.reloadPosts.v+1);
         f(v+1);
     };
 
     const onChange_Textarea = () =>{
         const text = refText.current.value;
-        props.setText.call(props.store,text);
+        props.setText(text);
         f(v+1);
     }
 
     return (
         <div className={css.NewPost}>
-            <textarea ref={ refText } value={props.getText.call(props.store)} onChange={ onChange_Textarea }/>
+            <textarea ref={ refText } value={props.getText()} onChange={ onChange_Textarea }/>
             <button className={css.Button} onClick={ onClick_ButtonAdd }>Добавить</button>
         </div>
     );

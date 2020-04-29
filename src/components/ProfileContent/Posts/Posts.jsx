@@ -8,7 +8,7 @@ const Posts = (props)=>{
 
     return (
         <div>
-            <NewPost reloadPosts={{v:v,f:f}} store={props.store} fAdd={props.store.fAddPost} getText={props.store.getPostText} setText={props.store.setPostText}/>
+            <NewPost reloadPosts={{v:v,f:f}} fAdd={props.store.fAddPost.bind(props.store)} getText={props.store.getPostText.bind(props.store)} setText={props.store.setPostText.bind(props.store)}/>
             <Items store={props.store}/>
         </div>
     );
