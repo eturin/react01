@@ -42,7 +42,7 @@ let state = {
     }
 }
 
-const store = {
+const storeOld = {
         _state: state,
         _getAva() {  return this._state.ProfileContentPage.ava; },
         _setPostText(text) { this._state.ProfileContentPage.textOfNewPost = text; },
@@ -120,7 +120,7 @@ const store = {
         }
 };
 
-export const dispatch = store.dispatch.bind(store);
+export const dispatch = storeOld.dispatch.bind(storeOld);
 
 
 
