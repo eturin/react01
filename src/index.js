@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { dispatch } from './storeOld'
+import { store } from './redux/store'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App dispatch={dispatch}/>
+    <App store={store} state={store.getState()} dispatch={store.dispatch.bind(store)}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

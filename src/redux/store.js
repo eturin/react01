@@ -1,7 +1,8 @@
 import {combineReducers, createStore} from "redux";
-import dialogsPageReducer from "./dialogsPageReducer";
-import navBarReducer from "./navBarReducer";
-import profileContentPageReducer from "./profileContentPageReducer";
+import dialogsPageReducer, {getKeys, getMessage, getPeoples} from "./dialogsPageReducer";
+import navBarReducer, {getFriends} from "./navBarReducer";
+import profileContentPageReducer, {getPosts} from "./profileContentPageReducer";
+import {DIALOGS, f_add, getText, PROFILE_CONTENT, set_text} from "./utils";
 
 let reducers = combineReducers({
     DialogsPage: dialogsPageReducer,
@@ -10,5 +11,15 @@ let reducers = combineReducers({
 });
 
 let store = createStore(reducers);
+store.getPosts  =getPosts;
+store.getText   =getText;
+store.getFriends=getFriends;
+store.getPeoples=getPeoples;
+store.getKeys   =getKeys;
+store.getMessage=getMessage;
+store.actionCreaters={
+    c:{PROFILE_CONTENT:PROFILE_CONTENT, DIALOGS:DIALOGS},
+    f:{set_text:set_text,f_add:f_add}
+};
 
 export default store;

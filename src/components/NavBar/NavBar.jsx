@@ -16,7 +16,7 @@ const NavBar= (props)=> {
                 <br/>
                 <br/>
             </div>
-            <Friends dispatch={props.dispatch}/>
+            <Friends state={props.state} store={props.store} dispatch={props.dispatch}/>
         </div>);
 }
 

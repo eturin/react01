@@ -13,4 +13,6 @@ const navBarReducer = (state=initState, action) => {
     return state;
 }
 
+export const getFriends = (state) => state.FriendsPage.mFriends;
+
 export  default navBarReducer;

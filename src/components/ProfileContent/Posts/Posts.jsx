@@ -8,8 +8,8 @@ const Posts = (props)=>{
 
     return (
         <div>
-            <NewPost reloadPosts={{v:v,f:f}} dispatch={props.dispatch} from='ProfileContent'/>
-            <Items dispatch={props.dispatch}/>
+            <NewPost reloadPosts={{v:v,f:f}} state={props.state} store={props.store} dispatch={props.dispatch} from={props.store.actionCreaters.c.PROFILE_CONTENT} />
+            <Items state={props.state} store={props.store} dispatch={props.dispatch} />
         </div>
     );
 }

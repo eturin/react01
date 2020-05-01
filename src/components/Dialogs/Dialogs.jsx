@@ -6,10 +6,10 @@ import ItemDialog from "./Item/Item";
 import Messages from "./Messages/Messages";
 
 const Dialogs = (props) => {
-    let mPeople = props.dispatch({type:'getPeoples'});
+    let mPeople = props.store.getPeoples(props.state);
     let mJSXPeople = mPeople.map(x => <ItemDialog name={x.name} id={x.id} img={x.img}/>);
     let mJSXRoute  = mPeople.map(x => <Route path={'/dialogs/'+x.id}
-                                             render={()=> <Messages mKey={props.dispatch({type:'getKeys', id:x.id})} id={x.id} dispatch={props.dispatch}/>} />
+                                             render={()=> <Messages mKey={props.store.getKeys(props.state,x.id)} id={x.id} state={props.state} store={props.store} dispatch={props.dispatch}/>} />
     );
 
     return (

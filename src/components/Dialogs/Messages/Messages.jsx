@@ -6,14 +6,14 @@ import NewPost from "../../ProfileContent/Posts/New/NewPost";
 const Messages = (props) =>{
     const [v,f] = useState([]);
 
-    let mJSXMessages = props.mKey.map(i => <Message message={props.dispatch({type:'getMessage', id:i})} id={i}/>);
+    let mJSXMessages = props.mKey.map(i => <Message message={props.store.getMessage(props.state,i)} id={i}/>);
     props.dispatch({type:'setId',id:props.id});
 
     return (
         <div className={css.Messages}>
             <span>Сообщения</span>
             { mJSXMessages }
-            <NewPost reloadPosts={{v:v,f:f}} dispatch={props.dispatch} from='Dialogs' />
+            <NewPost reloadPosts={{v:v,f:f}} state={props.state} store={props.store} dispatch={props.dispatch} from={props.store.actionCreaters.c.DIALOGS}  />
         </div>
     );
 };

@@ -5,21 +5,23 @@ const NewPost = (props)=>{
     const [v,f]=useState([]);
 
     const onClick_ButtonAdd = () => {
-        props.dispatch({type:'fAdd', from:props.from});
+        let action = props.store.actionCreaters.f.f_add(props.from);
+        props.dispatch(action);
         props.reloadPosts.f(props.reloadPosts.v+1);
         f(v+1);
     };
 
     const onChange_Textarea = (event) =>{
         const text = event.target.value;
-        props.dispatch({type:'setText', text:text, from:props.from});
+        let action = props.store.actionCreaters.f.set_text(text,props.from);
+        props.dispatch(action);
         f(v+1);
     }
 
     return (
         <div className={css.NewPost}>
             <textarea placeholder="Текст нового сообщения"
-                      value={props.dispatch({type:'getText',from:props.from})}
+                      value={props.store.getText(props.state)}
                       onChange={ onChange_Textarea }/>
             <button className={css.Button} onClick={ onClick_ButtonAdd }>Добавить</button>
         </div>
