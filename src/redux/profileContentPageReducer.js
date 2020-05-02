@@ -1,5 +1,4 @@
 import {F_ADD, getAva, getText, PROFILE_CONTENT, SET_TEXT, setText} from "./utils";
-import {fAddMessage} from "./dialogsPageReducer";
 
 let initState = {
     ava: '/predator.jpeg',

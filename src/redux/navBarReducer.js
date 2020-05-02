@@ -1,3 +1,4 @@
+import React from "react";
 let initState = {
     FriendsPage: {
         mFriends: [

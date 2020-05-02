@@ -1,4 +1,5 @@
-import {DIALOGS, F_ADD, getAva, getText, SET_TEXT, setText} from "./utils";
+import React from "react";
+import {F_ADD, getAva, getText, DIALOGS        , SET_TEXT, setText} from "./utils";
 
 let initState =  {
     mPeople: [
@@ -20,14 +21,15 @@ let initState =  {
         'v': [0]
     },
     text: "",
+    ava: '/predator.jpeg',
     id: undefined
 };
 
 const dialogsPageReducer = (state = initState, action) =>{
-    if(action.type===SET_TEXT
+    if(action.type === SET_TEXT
        && action.from === DIALOGS)
         setText(state, action.text);
-    else if(action.type===F_ADD
+    else if(action.type === F_ADD
             && action.from === DIALOGS)
         fAddMessage(state);
 
@@ -40,7 +42,7 @@ export const getMessage = (state, id) => state.mMessage[id];
 export const getMessages= (state) => state.mMessage;
 export const setId      = (state,id) => { state.id = id; };
 export const getId      = (state) => state.id;
-export const fAddMessage= (state) => {
+export const fAddMessage = (state) => {
     let mMessages=getMessages(state);
     mMessages.push(
         {
@@ -49,7 +51,7 @@ export const fAddMessage= (state) => {
             text: getText(state),
             img : getAva(state)
         });
-    state.DialogsPage.mKey[getId()].push(mMessages.length - 1);
+    state.mKey[getId(state)].push(mMessages.length - 1);
     setText(state,'');
 };
 

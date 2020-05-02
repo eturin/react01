@@ -3,9 +3,7 @@ import css from './Friends.module.css'
 import Friend from "../Friend/Friend";
 
 const Friends = (props) =>{
-    let mFriends = props.store.getFriends(props.state);
-
-    let mJSXFriends = mFriends.map(x => <Friend img={x.img} name={x.name}/>);
+    let mJSXFriends = props.mFriends.map(x => <Friend img={x.img} name={x.name}/>);
 
     return (
         <div className={css.Friends}>

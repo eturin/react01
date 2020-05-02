@@ -1,15 +1,15 @@
 import React, {useState} from "react";
 import css from './Posts.module.css'
-import NewPost from './New/NewPost'
-import Items from './Items/Items'
+import ItemsContainer from "./Items/ItemsContainer";
+import NewContainer from "../../New/NewContainer";
 
 const Posts = (props)=>{
     const [v, f] = useState([]);
 
     return (
         <div>
-            <NewPost reloadPosts={{v:v,f:f}} state={props.state} store={props.store} dispatch={props.dispatch} from={props.store.actionCreaters.c.PROFILE_CONTENT} />
-            <Items state={props.state} store={props.store} dispatch={props.dispatch} />
+            <NewContainer   reloadPosts={ {v:v,f:f} } store={ props.store } from="ProfileContent" />
+            <ItemsContainer store={ props.store }  />
         </div>
     );
 }
