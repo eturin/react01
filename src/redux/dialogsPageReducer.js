@@ -27,12 +27,14 @@ let initState =  {
 
 const dialogsPageReducer = (state = initState, action) =>{
     if(action.type === SET_TEXT
-       && action.from === DIALOGS)
+       && action.from === DIALOGS) {
         setText(state, action.text);
-    else if(action.type === F_ADD
-            && action.from === DIALOGS)
+        state = {...state};
+    }else if(action.type === F_ADD
+            && action.from === DIALOGS){
         fAddMessage(state);
-
+        state = {...state};
+    }
     return state;
 }
 

@@ -13,11 +13,15 @@ let initState = {
 
 const profileContentPageReducer = (state = initState, action) => {
     if(action.type===SET_TEXT
-       && action.from === PROFILE_CONTENT)
+       && action.from === PROFILE_CONTENT) {
         setText(state, action.text);
-    else if(action.type===F_ADD
-            && action.from === PROFILE_CONTENT)
+        state = {...state};
+    }else if(action.type===F_ADD
+            && action.from === PROFILE_CONTENT) {
         fAddPost(state);
+        state = {...state};
+        state.mPosts = [...state.mPosts];
+    }
     return state;
 }
 
