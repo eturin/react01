@@ -12,17 +12,20 @@ let initState = {
 };
 
 const profileContentPageReducer = (state = initState, action) => {
+    let stateCopy = state;
+
     if(action.type===SET_TEXT
        && action.from === PROFILE_CONTENT) {
-        setText(state, action.text);
-        state = {...state};
+        stateCopy = {...state};
+        setText(stateCopy, action.text);
     }else if(action.type===F_ADD
             && action.from === PROFILE_CONTENT) {
-        fAddPost(state);
-        state = {...state};
-        state.mPosts = [...state.mPosts];
+        stateCopy = {...state};
+        fAddPost(stateCopy);
+        stateCopy.mPosts = [...stateCopy.mPosts];
     }
-    return state;
+
+    return stateCopy;
 }
 
 export const getPosts = (state) => state.mPosts;

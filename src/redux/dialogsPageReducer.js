@@ -26,16 +26,20 @@ let initState =  {
 };
 
 const dialogsPageReducer = (state = initState, action) =>{
+    let stateCopy =state;
+
     if(action.type === SET_TEXT
        && action.from === DIALOGS) {
-        setText(state, action.text);
-        state = {...state};
+        stateCopy = {...state};
+        setText(stateCopy, action.text);
     }else if(action.type === F_ADD
             && action.from === DIALOGS){
-        fAddMessage(state);
-        state = {...state};
+        stateCopy = {...state};
+        fAddMessage(stateCopy);
+        stateCopy.mMessage = [...stateCopy.mMessage];
     }
-    return state;
+
+    return stateCopy;
 }
 
 export const getPeoples = (state) => state.mPeople;
