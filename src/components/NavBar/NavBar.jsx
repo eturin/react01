@@ -16,7 +16,7 @@ const NavBar= (props)=> {
                 <br/>
                 <br/>
             </div>
-            <FriendsContainer store={props.store} />
+            <FriendsContainer  />
         </div>);
 }
 

@@ -44,6 +44,7 @@ export const setId      = (state,id) => { state.id = id; };
 export const getId      = (state) => state.id;
 export const fAddMessage = (state) => {
     let mMessages=getMessages(state);
+    let id = window.location.pathname.split('/').slice(-1);
     mMessages.push(
         {
             id  : mMessages.length,
@@ -51,7 +52,7 @@ export const fAddMessage = (state) => {
             text: getText(state),
             img : getAva(state)
         });
-    state.mKey[getId(state)].push(mMessages.length - 1);
+    state.mKey[id].push(mMessages.length - 1);
     setText(state,'');
 };
 
