@@ -11,7 +11,7 @@ const FindUser = (props) => {
                 { mJSXItems}
             </div>
             <div className={css.DivB}>
-                <button className={css.Button} title='Показать ещё' onClick={ props.getMore }>Показать ещё</button>
+                <button className={css.Button} title='Показать ещё' onClick={ () => {props.getMore(props.page);} }>Показать ещё</button>
             </div>
         </div>
     );

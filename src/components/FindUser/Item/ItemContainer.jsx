@@ -4,7 +4,7 @@ import {onFollow} from "../../../redux/utils";
 import Item from "./Item";
 
 const mapStateToProps   = (state,ownProps) =>{
-    let x = state.FindUserPage.mUsers[ownProps.id];
+    let x = state.FindUserPage.mUsers.find(x => x.id===ownProps.id);
     return {
         key    : x.id,
         id     : x.id,

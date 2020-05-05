@@ -5,7 +5,7 @@ const Item = (props) => {
     return (
         <div className={css.Item}>
             <div className={css.AvaButton}>
-                <img className={css.Img} src={props.img}/>
+                <img className={css.Img} src={props.img== null ? '/empty.jpeg' : props.img}/>
                 <button className={!props.follow ? css.ButtonActive : css.ButtonInActive}
                         title={props.follow ? 'Подписаться' : 'Отписаться'}
                         onClick={ () => props.onFollow(props.id) }>{props.follow ? 'Подписаться' : 'Отписаться'}</button>
