@@ -5,7 +5,7 @@ import ItemContainer from "./Item/ItemContainer";
 class FindUser extends React.Component {
     constructor(props) { super(props); }; /*нельзя заменить на стрелочную функцию*/
     render = () => {
-        if(this.props.mUsers.length==0) this.props.getMore(this.props.page);
+        if(this.props.mUsers.length===0) this.props.getMore(this.props.page);
 
         let mJSXItems = this.props.mUsers.map(x => <ItemContainer key={x.id} id={x.id} />);
         return (
