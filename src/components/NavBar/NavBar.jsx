@@ -7,12 +7,12 @@ const NavBar= (props)=> {
     return (
         <div className={css.NavBar}>
             <div className={css.Menu}>
-                <div><NavLink to="/profile"  activeClassName={css.ActiveLink}><p>Профиль</p></NavLink></div>
-                <div><NavLink to="/dialogs"  activeClassName={css.ActiveLink}><p>Сообщения</p></NavLink></div>
-                <div><NavLink to="/news"     activeClassName={css.ActiveLink}><p>Новости</p></NavLink></div>
-                <div><NavLink to="/musics"   activeClassName={css.ActiveLink}><p>Музыка</p></NavLink></div>
-                <div><NavLink to="/finduser" activeClassName={css.ActiveLink}><p>Найти пользователя</p></NavLink></div>
-                <div><NavLink to="/settings" activeClassName={css.ActiveLink}><p>Настройки</p></NavLink></div>
+                <div><NavLink to="/profile"    activeClassName={css.ActiveLink}><p>Профиль</p></NavLink></div>
+                <div><NavLink to="/dialogs"    activeClassName={css.ActiveLink}><p>Сообщения</p></NavLink></div>
+                <div><NavLink to="/news"       activeClassName={css.ActiveLink}><p>Новости</p></NavLink></div>
+                <div><NavLink to="/musics"     activeClassName={css.ActiveLink}><p>Музыка</p></NavLink></div>
+                <div><NavLink to="/finduser"   activeClassName={css.ActiveLink}><p>Найти пользователя</p></NavLink></div>
+                <div><NavLink to="/settings"   activeClassName={css.ActiveLink}><p>Настройки</p></NavLink></div>
                 <br/>
                 <br/>
             </div>

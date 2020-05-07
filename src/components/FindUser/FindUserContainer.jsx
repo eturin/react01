@@ -1,28 +1,21 @@
 import React from "react";
-import Axios from "axios";
 import {connect} from "react-redux";
 import FindUser from "./FindUser";
-import {addUsers, GET_users} from "../../redux/utils";
+import {addUsers, GET_users, setPage} from "../../redux/utils";
 
 
-const mapStateToProps   = (state) =>{
-    let mUsers = state.FindUserPage.mUsers;
-    const page = state.FindUserPage.page;
+const mapStateToProps   = (state, ownProps) =>{
     return {
-        page  : page,
-        mUsers: mUsers
+        Page        : state.FindUserPage.Page,
+        totalPage   : state.FindUserPage.totalPage,
+        count       : state.FindUserPage.count,
+        mUsers      : state.FindUserPage.mUsers.filter(x=>x.page===state.FindUserPage.Page)
     }
 }
 const mapDispatchToProps= (dispatch) =>{
-    const getMore = (page) => {
-        GET_users(page, (items)=>{
-            let action = addUsers(items);
-            dispatch(action);
-        });
-    };
-
     return {
-        getMore: getMore
+        getMore     : (count,Page,totalCount) => { GET_users(count,  Page, (Page,items,totalCount)=>{ dispatch(addUsers(Page,items,totalCount));} ); },
+        setPage     : (Page) =>{dispatch(setPage(Page));},
     };
 }
 

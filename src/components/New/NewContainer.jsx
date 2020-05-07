@@ -5,7 +5,7 @@ import {DIALOGS, f_add, PROFILE_CONTENT, set_text} from "../../redux/utils";
 
 const mapStateToProps = (state) =>{
     let from = window.location.pathname.split('/')[1]==='profile' ? PROFILE_CONTENT : DIALOGS;
-    let text = from == PROFILE_CONTENT ? state.ProfileContentPage.text: state.DialogsPage.text;
+    let text = from === PROFILE_CONTENT ? state.ProfileContentPage.text: state.DialogsPage.text;
 
     return {
         from: from,

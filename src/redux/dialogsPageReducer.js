@@ -1,4 +1,3 @@
-import React from "react";
 import {F_ADD, getAva, getText, DIALOGS        , SET_TEXT, setText} from "./utils";
 
 let initState =  {

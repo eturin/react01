@@ -1,22 +1,30 @@
 import React from "react";
-import css from "./FindUser.module.css"
+import css from "./FindUser.module.css";
 import ItemContainer from "./Item/ItemContainer";
+import NavUsers from './NavUsers/NavUsers'
 
 class FindUser extends React.Component {
-    constructor(props) { super(props); }; /*нельзя заменить на стрелочную функцию*/
-    render = () => {
-        if(this.props.mUsers.length===0) this.props.getMore(this.props.page);
+    constructor(props) {/*нельзя заменить на стрелочную функцию*/
+        super(props);
+    };
+    componentDidMount = () => {
+        this.props.getMore(this.props.count,this.props.Page);
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.Page!=this.props.Page)
+            this.props.getMore(this.props.count,this.props.Page);
+    }
 
+    render = () => {
         let mJSXItems = this.props.mUsers.map(x => <ItemContainer key={x.id} id={x.id} />);
         return (
             <div className={css.FindUser}>
                 <p className={ css.P }>Пользователи</p>
+                <NavUsers page={this.props.Page}  setPage={this.props.setPage} totalPage={this.props.totalPage}/>
                 <div>
-                    { mJSXItems}
+                    { mJSXItems.length===0 ? `Wait... page(${this.props.Page})` : mJSXItems}
                 </div>
-                <div className={css.DivB}>
-                    <button className={css.Button} title='Показать ещё' onClick={ () => {this.props.getMore(this.props.page);} }>Показать ещё</button>
-                </div>
+                <NavUsers page={this.props.Page} setPage={this.props.setPage} totalPage={this.props.totalPage}/>
             </div>
         );
     }
