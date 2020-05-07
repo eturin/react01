@@ -27,6 +27,10 @@ export const GET_users = (count, page, onSucces) => {
             onSucces(page, resp.data.items, resp.data.totalCount);
         })
         .catch(error => {
-            alert("Page ("+page+"): "+error.response.data.message)
+            try {
+                alert("Page (" + page + "): " + error.response.data.message)
+            }catch (e) {
+                alert("Page (" + page + "): error")
+            }
         });
 } 
