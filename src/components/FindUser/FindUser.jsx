@@ -17,14 +17,14 @@ class FindUser extends React.Component {
 
     render = () => {
         let mJSXItems = this.props.mUsers.map(x => <ItemContainer key={x.id} id={x.id} />);
-        const jsx = mJSXItems.length===0 ? <p className={css.Loading}><img className={css.ImgBack} src='/loading.gif'/><img src='/loading2.gif'/><img src='/loading.gif'/></p>:<>{mJSXItems}</>;
-
+        const jsx = mJSXItems.length===0 ? <p className={css.Loading}><img className={css.ImgBack} src='/loading.gif'/></p>:'';
         return (
             <div className={css.FindUser}>
                 <p className={ css.P }>Пользователи</p>
                 <NavUsers page={this.props.Page}  setPage={this.props.setPage} totalPage={this.props.totalPage}/>
                 <div>
                     { jsx }
+                    {mJSXItems}
                 </div>
                 <NavUsers page={this.props.Page} setPage={this.props.setPage} totalPage={this.props.totalPage}/>
             </div>

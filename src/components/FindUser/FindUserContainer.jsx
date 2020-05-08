@@ -9,7 +9,7 @@ const mapStateToProps   = (state, ownProps) =>{
         Page        : state.FindUserPage.Page,
         totalPage   : state.FindUserPage.totalPage,
         count       : state.FindUserPage.count,
-        mUsers      : state.FindUserPage.mUsers.filter(x=>x.page===state.FindUserPage.Page)
+        mUsers      : state.FindUserPage.mUsers
     }
 }
 const mapDispatchToProps= (dispatch) =>{
