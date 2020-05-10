@@ -17,12 +17,12 @@ const App = (props) => {
             <Header/>
             <NavBar />
             <div className={css.Content}>
-                <Route path='/profile'  render={() => <ProfileContent   /> }/>
-                <Route path='/dialogs'  render={() => <DialogsContainer /> }/>
-                <Route path='/finduser' render={() => <FindUserContainer/> }/>
-                <Route path='/news'     render={() => <News             /> }/>
-                <Route path='/musics'   render={() => <Musics           /> }/>
-                <Route path='/settings' render={() => <Settings         /> }/>
+                <Route path='/profile/:id?' render={() => <ProfileContent   /> }/>
+                <Route path='/dialogs'      render={() => <DialogsContainer /> }/>
+                <Route path='/finduser'     render={() => <FindUserContainer/> }/>
+                <Route path='/news'         render={() => <News             /> }/>
+                <Route path='/musics'       render={() => <Musics           /> }/>
+                <Route path='/settings'     render={() => <Settings         /> }/>
             </div>
         </div>
     );

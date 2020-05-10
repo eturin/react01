@@ -1,11 +1,12 @@
 import React from "react";
 import css from './Item.module.css'
+import {NavLink} from "react-router-dom";
 
 const Item = (props) => {
     return (
         <div className={css.Item}>
             <div className={css.AvaButton}>
-                <img className={css.Img} src={props.img== null ? '/empty.jpeg' : props.img}/>
+                <NavLink to={`/profile/${props.id}`} ><img className={css.Img} src={props.img== null ? '/empty.jpeg' : props.img}/></NavLink>
                 <button className={!props.follow ? css.ButtonActive : css.ButtonInActive}
                         title={props.follow ? 'Подписаться' : 'Отписаться'}
                         onClick={ () => props.onFollow(props.id) }>{props.follow ? 'Подписаться' : 'Отписаться'}</button>

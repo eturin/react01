@@ -1,37 +1,43 @@
 .Prof{
     display: grid;
     grid-template-areas:
-            "a n"
-            "a b"
-            "a c"
-            "a e"
-            "a s";
-    grid-template-rows: 4fr 3fr 3fr 3fr 3fr;
-    grid-template-columns: 150px auto;
+            "aa nn dj"
+            "aa ss jj"
+            "aa ss jj"
+            "aa ss jj";
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 150px auto auto;
 }
-.Prof{
-    grid-row: 1 / 6;
-}
-.Avatar{
-    grid-area: a;
-}
-.Avatar img{
+.AvatarImg{
     width: 150px;
     height: 150px;
 }
-.Name{
-    grid-area: n;
+.Avatar    { grid-area: aa;}
+.Name      { grid-area: nn; font-weight: bold;}
+.Status    { grid-area: ss;}
+.Img {width: 15px;}
+
+.Contacts  {
+    grid-area: cc;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
 }
-.Birthday{
-    grid-area: b;
+
+.DJob{ grid-area: dj; font-weight: bold;}
+.ActiveLookingForAJobDescription {grid-area: jj; }
+.LookingForAJobDescription {grid-area: jj; color: darkgrey;}
+
+.Loading{
+    border-radius: 5px;
+    text-align: center;
 }
-.City{
-    grid-area: c;
+.ImgBack{
+    transform: scale(-1, 1);
+    size: 30px;
 }
-.Edu{
-    grid-area: e;
-}
-.Site{
-    grid-area: s;
-}
+
+
+
+
 

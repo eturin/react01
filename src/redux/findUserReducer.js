@@ -1,4 +1,4 @@
-import {ADD_USERS, FOLLOW, SET_PAGE} from "./utils";
+import {ADD_USERS, FOLLOW, SET_COUNT, SET_PAGE} from "./utils";
 
 let initState ={
     count  : 3,
@@ -23,7 +23,15 @@ const findUserReducer = (state = initState, action) =>{
         stateCopy = {
             ...stateCopy,
             mUsers   : [],
-            Page     :action.Page
+            Page     : action.Page
+        };
+    }else if(action.type === SET_COUNT){
+        stateCopy = {
+            ...stateCopy,
+            mUsers   : [],
+            count    : action.count,
+            Page     : 1,
+            totalPage: 0
         };
     }else if (action.type === ADD_USERS){
         let mUsers = action.mUsers.map(x => (

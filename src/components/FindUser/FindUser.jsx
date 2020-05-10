@@ -8,11 +8,11 @@ class FindUser extends React.Component {
         super(props);
     };
     componentDidMount = () => {
-        this.props.getMore(this.props.count,this.props.Page);
+        this.props.getMore(this.props.countItem,this.props.Page);
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps.Page!=this.props.Page)
-            this.props.getMore(this.props.count,this.props.Page);
+        if(prevProps.Page!=this.props.Page || prevProps.countItem!=this.props.countItem)
+            this.props.getMore(this.props.countItem,this.props.Page);
     }
 
     render = () => {
@@ -21,12 +21,12 @@ class FindUser extends React.Component {
         return (
             <div className={css.FindUser}>
                 <p className={ css.P }>Пользователи</p>
-                <NavUsers page={this.props.Page}  setPage={this.props.setPage} totalPage={this.props.totalPage}/>
+                <NavUsers page={this.props.Page}  setPage={this.props.setPage} setCount={this.props.setCount} countItem={this.props.countItem} totalPage={this.props.totalPage}/>
                 <div>
                     { jsx }
                     {mJSXItems}
                 </div>
-                <NavUsers page={this.props.Page} setPage={this.props.setPage} totalPage={this.props.totalPage}/>
+                <NavUsers page={this.props.Page} setPage={this.props.setPage} setCount={this.props.setCount} countItem={this.props.countItem} totalPage={this.props.totalPage}/>
             </div>
         );
     }

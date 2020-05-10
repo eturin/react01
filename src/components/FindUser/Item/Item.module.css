@@ -47,7 +47,7 @@
             "cmt city";
     grid-template-columns: auto 100px;
     grid-template-rows: 1fr 2fr;
-    border-radius: 25px;
+    border-radius: 15px;
     border-color: bisque;
     border-style: solid;
 }
