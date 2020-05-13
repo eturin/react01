@@ -8,7 +8,8 @@ export const SET_TEXT       ='setText';
 export const F_ADD          ='fAdd';
 export const PROFILE_CONTENT='ProfileContent';
 export const DIALOGS        ='Dialogs';
-export const FOLLOW      ='onFollow';
+export const FOLLOW         ='onFollow';
+export const IS_WATING_FOLLOW='isWatingFollow';
 export const ADD_USERS      ='AddUsers';
 export const SET_PAGE       ='SetPage';
 export const SET_COUNT      ='SetCount';
@@ -17,16 +18,17 @@ export const SET_LOADING_P  ='SetLoadingProfile';
 export const SET_ME         ='SetMe';
 export const SET_LOADING_ME ='SetLoadingMe';
 
-export const set_text      = (text, from=PROFILE_CONTENT)  => ({ type: SET_TEXT       , from:from, text:text                             });
-export const f_add         = (from=PROFILE_CONTENT)        => ({ type: F_ADD          , from:from                                        });
-export const onFollow      = (id,isFollow)                       => ({ type: FOLLOW         , id:id, isFollow:isFollow                         });
-export const addUsers      = (page, mUsers,totalCount)           => ({ type: ADD_USERS      , page:page, mUsers:mUsers, totalCount:totalCount  });
-export const setPage       = (Page)                              => ({ type: SET_PAGE       , Page:Page                                        });
-export const setCount      = (count)                             => ({ type: SET_COUNT      , count:count                                      });
-export const setProfile    = (id,obj)                            => ({ type: SET_PROFILE    , id: id, obj:obj                                  });
-export const setLoadinProf = (id)                                => ({ type: SET_LOADING_P  , id: id                                           });
-export const setMe         = (data)                              => ({ type: SET_ME         , data: data                                       })
-export const setLoadingMe  = ()                                  => ({ type: SET_LOADING_ME                                                    })
+export const set_text      = (text, from=PROFILE_CONTENT)  => ({ type: SET_TEXT        , from:from, text:text                             });
+export const f_add         = (from=PROFILE_CONTENT)        => ({ type: F_ADD           , from:from                                        });
+export const onFollow      = (id,isFollow)                       => ({ type: FOLLOW          , id:id, isFollow:isFollow                         });
+export const isWatingFollow= (id)                                => ({ type: IS_WATING_FOLLOW, id:id                                            });
+export const addUsers      = (page, mUsers,totalCount)           => ({ type: ADD_USERS       , page:page, mUsers:mUsers, totalCount:totalCount  });
+export const setPage       = (Page)                              => ({ type: SET_PAGE        , Page:Page                                        });
+export const setCount      = (count)                             => ({ type: SET_COUNT       , count:count                                      });
+export const setProfile    = (id,obj)                            => ({ type: SET_PROFILE     , id: id, obj:obj                                  });
+export const setLoadinProf = (id)                                => ({ type: SET_LOADING_P   , id: id                                           });
+export const setMe         = (data)                              => ({ type: SET_ME          , data: data                                       })
+export const setLoadingMe  = ()                                  => ({ type: SET_LOADING_ME                                                     })
 
 
 const aXiOs = Axios.create({

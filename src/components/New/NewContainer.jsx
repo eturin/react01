@@ -1,4 +1,3 @@
-import React from "react";
 import New from "./New";
 import {connect} from "react-redux";
 import {DIALOGS, f_add, PROFILE_CONTENT, set_text} from "../../redux/utils";

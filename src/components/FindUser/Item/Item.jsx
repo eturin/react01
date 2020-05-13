@@ -8,8 +8,9 @@ const Item = (props) => {
             <div className={css.AvaButton}>
                 <NavLink to={`/profile/${props.id}`} ><img className={css.Img} src={props.img== null ? '/empty.jpeg' : props.img}/></NavLink>
                 <button className={!props.follow ? css.ButtonActive : css.ButtonInActive}
-                        title={props.follow ? 'Подписаться' : 'Отписаться'}
-                        onClick={ () => props.onFollow(props.follow,props.id) }>{props.follow ? 'Подписаться' : 'Отписаться'}</button>
+                        disabled={props.isWating}
+                        title={props.isWating ? 'Запрос отправлен': props.follow ? 'Подписаться' : 'Отписаться'}
+                        onClick={ () => props.isWating ? undefined : props.onFollow(props.follow,props.id) }>{props.isWating ? 'Запрос отправлен': props.follow ? 'Подписаться' : 'Отписаться'}</button>
             </div>
             <div className={css.Block}>
                 <p className={css.Name}>{props.name}</p>

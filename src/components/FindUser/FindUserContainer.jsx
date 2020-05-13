@@ -1,4 +1,3 @@
-import React from "react";
 import {connect} from "react-redux";
 import FindUser from "./FindUser";
 import {addUsers, GET_users, setCount, setPage} from "../../redux/utils";

@@ -1,4 +1,4 @@
-import {ADD_USERS, FOLLOW, SET_COUNT, SET_PAGE} from "./utils";
+import {ADD_USERS, FOLLOW, IS_WATING_FOLLOW, SET_COUNT, SET_PAGE} from "./utils";
 
 let initState ={
     count  : 3,
@@ -14,10 +14,15 @@ let initState ={
 const findUserReducer = (state = initState, action) =>{
     let stateCopy = state;
 
-    if(action.type===FOLLOW){
+    if(action.type===IS_WATING_FOLLOW) {
         stateCopy = {
             ...stateCopy,
-            mUsers: stateCopy.mUsers.map(x=> x.id===action.id ? {...x, follow:!action.isFollow} : x )
+            mUsers: stateCopy.mUsers.map(x => x.id === action.id ? {...x, isWaiting: true} : x)
+        };
+    }else if(action.type===FOLLOW){
+        stateCopy = {
+            ...stateCopy,
+            mUsers: stateCopy.mUsers.map(x=> x.id===action.id ? {...x, follow:!action.isFollow, isWaiting: false} : x )
         };
     }else if (action.type===SET_PAGE) {
         stateCopy = {
@@ -36,14 +41,15 @@ const findUserReducer = (state = initState, action) =>{
     }else if (action.type === ADD_USERS){
         let mUsers = action.mUsers.map(x => (
                     {
-                        page   : action.page,
-                        id     : x.id,
-                        name   : x.name,
-                        img    : x.photos.large,
-                        country: null,
-                        city   : null,
-                        comment: x.status,
-                        follow : !x.followed
+                        page     : action.page,
+                        id       : x.id,
+                        name     : x.name,
+                        img      : x.photos.large,
+                        country  : null,
+                        city     : null,
+                        comment  : x.status,
+                        follow   : !x.followed,
+                        isWaiting:false
                     })
         );
         stateCopy = {
