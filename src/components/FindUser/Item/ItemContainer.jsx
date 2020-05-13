@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {onFollow} from "../../../redux/utils";
+import {onFollow, Follow_UnFollow} from "../../../redux/utils";
 import Item from "./Item";
 
 const mapStateToProps   = (state,ownProps) =>{
@@ -18,13 +18,10 @@ const mapStateToProps   = (state,ownProps) =>{
     }
 }
 const mapDispatchToProps= (dispatch) =>{
-    const onClickFollow = (id) => {
-        const action = onFollow(id);
-        dispatch(action);
-    };
-
     return {
-        onFollow: onClickFollow
+        onFollow: (isFollow,id) => {Follow_UnFollow(isFollow,
+                                                    id,
+                                                    (isFolow,id)=>{dispatch(onFollow(id,isFolow));});}
     };
 }
 

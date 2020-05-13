@@ -17,7 +17,7 @@ const findUserReducer = (state = initState, action) =>{
     if(action.type===FOLLOW){
         stateCopy = {
             ...stateCopy,
-            mUsers: stateCopy.mUsers.map(x=> x.id===action.id ? {...x,follow:!x.follow} : x )
+            mUsers: stateCopy.mUsers.map(x=> x.id===action.id ? {...x, follow:!action.isFollow} : x )
         };
     }else if (action.type===SET_PAGE) {
         stateCopy = {
