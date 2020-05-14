@@ -2,14 +2,10 @@ import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 
 const mapStateToProps = (state) =>{
-    let mPeople = state.DialogsPage.mPeople;
     return {
-        mPeople:mPeople
+        mPeople:state.DialogsPage.mPeople
     };
 };
-const mapDispatchToProps = (dispatch) => {
-    return {};
-};
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
+const DialogsContainer = connect(mapStateToProps, {})(Dialogs);
 export default DialogsContainer;

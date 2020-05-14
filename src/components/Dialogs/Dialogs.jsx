@@ -6,7 +6,7 @@ import MessagesContainer from "./Messages/MessagesContainer";
 
 const Dialogs = (props) => {
     let mJSXPeople = props.mPeople.map(x => <Item name={x.name} key={x.id} id={x.id}  img={x.img}/>);
-    let mJSXRoute  = props.mPeople.map(x => <Route path={'/dialogs/'+x.id} key={x.id} render={()=> <MessagesContainer  />} /> );
+    let mJSXRoute  = props.mPeople.map(x => <Route path={`/dialogs/${x.id}`} key={x.id} render={()=> <MessagesContainer />} /> );
 
     return (
             <div className={ css.Dialogs }>

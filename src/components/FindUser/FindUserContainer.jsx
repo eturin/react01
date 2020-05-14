@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import FindUser from "./FindUser";
-import {addUsers, GET_users, setCount, setPage} from "../../redux/utils";
+import {getMore, setCount, setPage} from "../../redux/utils";
 
 
 const mapStateToProps   = (state, ownProps) =>{
@@ -11,14 +11,6 @@ const mapStateToProps   = (state, ownProps) =>{
         mUsers      : state.FindUserPage.mUsers
     }
 }
-const mapDispatchToProps= (dispatch) =>{
-    return {
-        getMore     : (count,Page,totalCount) => { GET_users(count,  Page, (Page,items,totalCount)=>{ dispatch(addUsers(Page,items,totalCount));} ); },
-        setPage     : (Page) =>{dispatch(setPage(Page));},
-        setCount    : (count) => {dispatch(setCount(count))}
-    };
-}
 
-const FindUserContainer = connect(mapStateToProps,mapDispatchToProps)(FindUser);
-
+const FindUserContainer = connect(mapStateToProps, {setPage,setCount,getMore})(FindUser);
 export default FindUserContainer;

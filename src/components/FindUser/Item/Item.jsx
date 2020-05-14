@@ -10,7 +10,7 @@ const Item = (props) => {
                 <button className={!props.follow ? css.ButtonActive : css.ButtonInActive}
                         disabled={props.isWating}
                         title={props.isWating ? 'Запрос отправлен': props.follow ? 'Подписаться' : 'Отписаться'}
-                        onClick={ () => props.isWating ? undefined : props.onFollow(props.follow,props.id) }>{props.isWating ? 'Запрос отправлен': props.follow ? 'Подписаться' : 'Отписаться'}</button>
+                        onClick={ () => props.isWating ? undefined : props.Follow_UnFollow(props.follow,props.id) }>{props.isWating ? 'Запрос отправлен': props.follow ? 'Подписаться' : 'Отписаться'}</button>
             </div>
             <div className={css.Block}>
                 <p className={css.Name}>{props.name}</p>

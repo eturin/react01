@@ -1,4 +1,5 @@
 import Axios from "axios";
+import {dispatch} from "../storeOld";
 
 export const getAva  = (state) => state.ava;
 export const setText = (state,text) => { state.text = text; };
@@ -18,6 +19,7 @@ export const SET_LOADING_P  ='SetLoadingProfile';
 export const SET_ME         ='SetMe';
 export const SET_LOADING_ME ='SetLoadingMe';
 
+//action creaters
 export const set_text      = (text, from=PROFILE_CONTENT)  => ({ type: SET_TEXT        , from:from, text:text                             });
 export const f_add         = (from=PROFILE_CONTENT)        => ({ type: F_ADD           , from:from                                        });
 export const onFollow      = (id,isFollow)                       => ({ type: FOLLOW          , id:id, isFollow:isFollow                         });
@@ -30,83 +32,93 @@ export const setLoadinProf = (id)                                => ({ type: SET
 export const setMe         = (data)                              => ({ type: SET_ME          , data: data                                       })
 export const setLoadingMe  = ()                                  => ({ type: SET_LOADING_ME                                                     })
 
-
 const aXiOs = Axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
     headers:{'API-KEY':'cb5f1a59-7c67-4a7f-8191-768910f74f3f'}
 });
 
-export const GET_users = (count, page, onSucces) => {
-    aXiOs.get(`users?page=${page}&count=${count}`)
-        .then((resp)=>{
-            onSucces(page, resp.data.items, resp.data.totalCount);
-        })
-        .catch(error => {
-            try {
-                alert("Page (" + page + "): " + error.response.data.message)
-            }catch (e) {
-                alert("Page (" + page + "): error")
-            }
-        });
+//thunk creaters
+export const Follow_UnFollow = (isFollow,id) => {
+    return (dispatch) => {
+        dispatch(isWatingFollow(id));
+        if(isFollow)
+            aXiOs.post(`follow/${id}`, {})
+                .then(resp => {
+                    if(resp.data.resultCode===0)
+                        dispatch(onFollow(id,isFollow));
+                    else
+                        alert(resp.data.messages)
+                })
+                .catch(error => {
+                    try {
+                        alert("ERR: follow: " + error.response.data.message)
+                    } catch (e) {
+                        alert("ERR: follow!")
+                    }
+                });
+        else
+            aXiOs.delete(`follow/${id}`)
+                .then(resp => {
+                    if(resp.data.resultCode===0)
+                        dispatch(onFollow(id,isFollow));
+                    else
+                        alert(resp.data.messages)
+                })
+                .catch(error => {
+                    try {
+                        alert("ERR: follow: " + error.response.data.message)
+                    } catch (e) {
+                        alert("ERR: follow!")
+                    }
+                });
+    }
 }
-export const getProfile = (id,setLoading,onSucces) =>{
-    setLoading(id);
-    aXiOs.get(`profile/${id}`)
-        .then((resp)=>{onSucces(id, resp.data);})
-        .catch(error => {
-            try {
-                alert("ERR: get profile (" + id + "): " + error.response.data.message)
-            } catch (e) {
-                alert("ERR: get profile (" + id + ")!")
-            }
-        });
-}
-export const authMe = (setLoading,onSucces) =>{
-    setLoading();
-    aXiOs.get(`auth/me`)
-        .then((resp) => {
-            if(resp.data.resultCode===0)
-                onSucces(resp.data.data);
-        })
-        .catch(error => {
-            try {
-                alert("ERR: auth me: " + error.response.data.message)
-            } catch (e) {
-                alert("ERR: auth me!")
-            }
-        })
-}
-export const Follow_UnFollow = (isFollow, id, onSucces) =>{
-    if(isFollow)
-        aXiOs.post(`follow/${id}`, {})
-             .then(resp => {
-                if(resp.data.resultCode===0)
-                    onSucces(isFollow, id);
-                else
-                    alert(resp.data.messages)
-             })
-             .catch(error => {
-                 debugger;
-                try {
-                    alert("ERR: follow: " + error.response.data.message)
-                } catch (e) {
-                    alert("ERR: follow!")
-                }
-             });
-    else
-        aXiOs.delete(`follow/${id}`)
-            .then(resp => {
-                if(resp.data.resultCode===0)
-                    onSucces(isFollow, id);
-                else
-                    alert(resp.data.messages)
+export const getMore         = (count,page) => {
+    return (dispatch) => {
+        aXiOs.get(`users?page=${page}&count=${count}`)
+            .then((resp)=>{
+                dispatch(addUsers(page, resp.data.items, resp.data.totalCount));
             })
             .catch(error => {
                 try {
-                    alert("ERR: follow: " + error.response.data.message)
-                } catch (e) {
-                    alert("ERR: follow!")
+                    alert("Page (" + page + "): " + error.response.data.message)
+                }catch (e) {
+                    alert("Page (" + page + "): error")
                 }
             });
+    }
+}
+export const authMe          = () => {
+    return (dispatch) => {
+        dispatch(setLoadingMe());
+        aXiOs.get(`auth/me`)
+            .then((resp) => {
+                if (resp.data.resultCode === 0)
+                    dispatch(setMe(resp.data.data));
+            })
+            .catch(error => {
+                try {
+                    alert("ERR: auth me: " + error.response.data.message)
+                } catch (e) {
+                    alert("ERR: auth me!")
+                }
+            })
+    }
+}
+export const getProfile      = (id) => {
+    return (dispatch) => {
+        dispatch(setLoadinProf(id));
+        aXiOs.get(`profile/${id}`)
+            .then((resp) => {
+                dispatch(setProfile(id, resp.data))
+            })
+            .catch(error => {
+                try {
+                    alert("ERR: get profile (" + id + "): " + error.response.data.message)
+                } catch (e) {
+                    alert("ERR: get profile (" + id + ")!")
+                }
+            });
+    }
 }

@@ -10,9 +10,6 @@ const mapStateToProps = (state) =>{
     }
 
 };
-const mapDispatchToProps = (dispatch) =>{
-    return {};
-};
-const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts);
 
+const PostsContainer = connect(mapStateToProps, {})(Posts);
 export default PostsContainer;

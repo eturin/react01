@@ -1,20 +1,13 @@
 import Messages from "./Messages";
 import {connect} from "react-redux";
 
-const mapStateToProps = (state) =>{
-    let id=window.location.pathname.split('/').slice(-1);
-
-    let mMessages = [];
-    for(let i of state.DialogsPage.mKey[id])
-        mMessages.push(state.DialogsPage.mMessage[i]);
-
+const mapStateToProps = (state, ownProps) =>{
+    const id = window.location.pathname.split('/').slice(-1)[0];
     return {
         dialog_id: id,
-        mMessages: mMessages
+        mMessages: state.DialogsPage.mKey[id].map(i => state.DialogsPage.mMessage[i])
     };
 }
-const mapDispatchToProps = (dispatch) => {
-    return {};
-}
-const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages);
+
+const MessagesContainer = connect(mapStateToProps, {})(Messages);
 export default MessagesContainer;

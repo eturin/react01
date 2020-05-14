@@ -1,7 +1,7 @@
 import {withRouter} from "react-router"
 import {connect} from "react-redux";
 import Prof from "./Prof";
-import {getProfile, setLoadinProf, setProfile} from "../../../redux/utils";
+import {getProfile} from "../../../redux/utils";
 
 const mapStateToProps = (state,ownProps) => {
     const State = state.ProfileContentPage;
@@ -23,13 +23,7 @@ const mapStateToProps = (state,ownProps) => {
         large                    : State.large
     };
 }
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getProfile: (id) => {getProfile(id,
-                              (id) => {dispatch(setLoadinProf(id))},
-                               (id,obj)=> {dispatch(setProfile(id,obj))});}
-    };
-}
 
-const ProfContainer = connect(mapStateToProps,mapDispatchToProps)(withRouter(Prof));
+
+const ProfContainer = connect(mapStateToProps, {getProfile})(withRouter(Prof));
 export default ProfContainer;

@@ -18,7 +18,7 @@ const App = (props) => {
             <NavBar />
             <div className={css.Content}>
                 <Route path='/profile/:id?' render={() => <ProfileContent   /> }/>
-                <Route path='/dialogs'      render={() => <DialogsContainer /> }/>
+                <Route path='/dialogs/'     render={() => <DialogsContainer /> }/>
                 <Route path='/finduser'     render={() => <FindUserContainer/> }/>
                 <Route path='/news'         render={() => <News             /> }/>
                 <Route path='/musics'       render={() => <Musics           /> }/>

@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {onFollow, Follow_UnFollow, isWatingFollow} from "../../../redux/utils";
+import {Follow_UnFollow} from "../../../redux/utils";
 import Item from "./Item";
 
 const mapStateToProps   = (state,ownProps) =>{
@@ -17,13 +17,6 @@ const mapStateToProps   = (state,ownProps) =>{
         x       : x
     }
 }
-const mapDispatchToProps= (dispatch) =>{
-    return {
-        onFollow: (isFollow,id) => {dispatch(isWatingFollow(id));
-                                    Follow_UnFollow(isFollow,
-                                                    id,
-                                                    (isFolow,id)=>{dispatch(onFollow(id,isFolow));});}
-    };
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(Item);
+const ItemContainer = connect(mapStateToProps, {Follow_UnFollow})(Item);
+export default ItemContainer;

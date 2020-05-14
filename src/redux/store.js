@@ -1,4 +1,5 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
+import ThunkMiddleware from "redux-thunk";
 import dialogsPageReducer        from "./dialogsPageReducer";
 import navBarReducer             from "./navBarReducer";
 import profileContentPageReducer from "./profileContentPageReducer";
@@ -13,6 +14,6 @@ let reducers = combineReducers({
     FindUserPage      : findUserReducer
 });
 
-let store = createStore(reducers);
+let store = createStore(reducers, applyMiddleware(ThunkMiddleware));
 
 export default store;
