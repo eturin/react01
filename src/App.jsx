@@ -8,8 +8,10 @@ import ProfileContent from "./components/ProfileContent/ProfileContent";
 import Musics from "./components/Musics/Musics";
 import Settings from "./components/Settings/Settings";
 import News from "./components/News/News";
+import Login from "./components/Login/Login";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import FindUserContainer from "./components/FindUser/FindUserContainer";
+
 
 const App = (props) => {
     return (
@@ -23,6 +25,7 @@ const App = (props) => {
                 <Route path='/news'         render={() => <News             /> }/>
                 <Route path='/musics'       render={() => <Musics           /> }/>
                 <Route path='/settings'     render={() => <Settings         /> }/>
+                <Route path='/login'        render={() => <Login            /> }/>
             </div>
         </div>
     );
