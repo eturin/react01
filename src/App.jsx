@@ -4,7 +4,6 @@ import {Route} from "react-router"
 import css from './App.module.css'
 import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
-import ProfileContent from "./components/ProfileContent/ProfileContent";
 import Musics from "./components/Musics/Musics";
 import Settings from "./components/Settings/Settings";
 import News from "./components/News/News";
