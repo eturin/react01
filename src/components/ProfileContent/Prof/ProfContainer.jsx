@@ -2,6 +2,7 @@ import {withRouter} from "react-router"
 import {connect} from "react-redux";
 import Prof from "./Prof";
 import {getProfile} from "../../../redux/utils";
+import withLoginRedirect from "../../HOC/withLoginRedirect";
 
 const mapStateToProps = (state,ownProps) => {
     const State = state.ProfileContentPage;

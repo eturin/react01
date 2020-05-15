@@ -7,7 +7,7 @@ let initState = {
         {id: 2, text: '456', img: '/predator.jpeg', cnt: 0},
         {id: 3, text: '654', img: '/predator.jpeg', cnt: -5}
     ],
-    id: 2,
+    id: undefined,
     loading: false,
     text: "",
     status: "status",

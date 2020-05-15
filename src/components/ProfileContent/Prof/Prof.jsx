@@ -4,28 +4,28 @@ import css from './Prof.module.css';
 class Prof extends React.Component {
     componentDidMount() {
         let id=this.props.match.params.id;
-        if(id==undefined) id=2;
-        this.props.getProfile(id);
+        if(id!==undefined) this.props.getProfile(id);
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         let id=this.props.match.params.id;
-        if(id==undefined) id=2;
-        if(prevProps!=null && this.props.match.params.id!=prevProps.match.params.id)
+        if(id!==undefined
+           && prevProps!=null
+           && id!==prevProps.match.params.id)
             this.props.getProfile(id);
     }
 
     render() {
         if(this.props.loading)
-            return <p className={css.Loading}><img className={css.ImgBack} src='/loading.gif'/></p>;
+            return <p className={css.Loading}><img className={css.ImgBack} alt='wait' src='/loading.gif'/></p>;
         else{
             let mJSX = [];
-            if (this.props.github != null)    mJSX.push(<div key={0} className={css.Github}>   <a href={this.props.github}    target='_blank'><img className={css.Img} src='/github.png'/>    </a></div>);
-            if (this.props.vk != null)        mJSX.push(<div key={1} className={css.Vk}>       <a href={this.props.vk}        target='_blank'><img className={css.Img} src='/vk.png'/>        </a></div>);
-            if (this.props.facebook != null)  mJSX.push(<div key={2} className={css.DFacebook}><a href={this.props.facebook}  target='_blank'><img className={css.Img} src='/facebook.png'/>  </a></div>);
-            if (this.props.instagram != null) mJSX.push(<div key={3} className={css.Instagram}><a href={this.props.instagram} target='_blank'><img className={css.Img} src='/instagram.jfif'/></a></div>);
-            if (this.props.twitter != null)   mJSX.push(<div key={4} className={css.Twitter}>  <a href={this.props.twitter}   target='_blank'><img className={css.Img} src='/twitter.png'/>   </a></div>);
-            if (this.props.youtube != null)   mJSX.push(<div key={5} className={css.Youtube}>  <a href={this.props.youtube}   target='_blank'><img className={css.Img} src='/youtгbe.jfif'/>  </a></div>);
-            if (this.props.website != null)   mJSX.push(<div key={6} className={css.Website}>  <a href={this.props.website}   target='_blank'><img className={css.Img} src='/www.png'/>       </a></div>);
+            if (this.props.github != null)    mJSX.push(<div key={0} className={css.Github}>   <a href={this.props.github}    target='_blank' rel="noopener noreferrer"><img className={css.Img} src='/github.png'     alt='github'    />  </a></div>);
+            if (this.props.vk != null)        mJSX.push(<div key={1} className={css.Vk}>       <a href={this.props.vk}        target='_blank' rel="noopener noreferrer"><img className={css.Img} src='/vk.png'         alt='vk'        />  </a></div>);
+            if (this.props.facebook != null)  mJSX.push(<div key={2} className={css.DFacebook}><a href={this.props.facebook}  target='_blank' rel="noopener noreferrer"><img className={css.Img} src='/facebook.png'   alt='facebook'  />  </a></div>);
+            if (this.props.instagram != null) mJSX.push(<div key={3} className={css.Instagram}><a href={this.props.instagram} target='_blank' rel="noopener noreferrer"><img className={css.Img} src='/instagram.jfif' alt='instagram' />  </a></div>);
+            if (this.props.twitter != null)   mJSX.push(<div key={4} className={css.Twitter}>  <a href={this.props.twitter}   target='_blank' rel="noopener noreferrer"><img className={css.Img} src='/twitter.png'    alt='twitter'   />  </a></div>);
+            if (this.props.youtube != null)   mJSX.push(<div key={5} className={css.Youtube}>  <a href={this.props.youtube}   target='_blank' rel="noopener noreferrer"><img className={css.Img} src='/youtгbe.jfif'   alt='youtгbe'   />  </a></div>);
+            if (this.props.website != null)   mJSX.push(<div key={6} className={css.Website}>  <a href={this.props.website}   target='_blank' rel="noopener noreferrer"><img className={css.Img} src='/www.png'        alt='www'       />  </a></div>);
 
             return (
                 <div className={css.Prof}>
