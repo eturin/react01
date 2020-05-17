@@ -15,10 +15,6 @@ export const SET_PAGE         ='SetPage';
 export const SET_COUNT        ='SetCount';
 export const SET_PROFILE      ='SetProfile';
 export const SET_STATUS       ='SetStatus';
-export const START_EDIT_LINE  ='StartEditLine';
-export const SENDING_EDIT_LINE='SendingEditLine';
-export const UPDATE_EDIT_LINE ='UpdEditLine';
-export const CANCEL_EDIT_LINE ='CancelEditLine';
 export const SET_LOADING_P    ='SetLoadingProfile';
 export const SET_ME           ='SetMe';
 export const SET_LOADING_ME   ='SetLoadingMe';
@@ -33,10 +29,6 @@ export const setPage        = (Page)                              => ({ type: SE
 export const setCount       = (count)                             => ({ type: SET_COUNT        , count:count                                      });
 export const setProfile     = (id,obj)                            => ({ type: SET_PROFILE      , id: id, obj:obj                                  });
 export const setStatus      = (id,status)                         => ({ type: SET_STATUS       , id: id, status:status                            });
-export const startEditLine  = (id,source)                         => ({ type: START_EDIT_LINE  , id: id, source: source                           });
-export const updateEditLine = (id,val)                            => ({ type: UPDATE_EDIT_LINE , id: id, val: val                                 });
-export const cancelEditLine = (source)                            => ({ type: CANCEL_EDIT_LINE , source: source                                   });
-export const sendingEditLine= (id,source)                         => ({ type: SENDING_EDIT_LINE, id: id,source: source                            });
 export const setLoadinProf  = (id)                                => ({ type: SET_LOADING_P    , id: id                                           });
 export const setMe          = (data)                              => ({ type: SET_ME           , data: data                                       })
 export const setLoadingMe   = ()                                  => ({ type: SET_LOADING_ME                                                      })
@@ -147,11 +139,9 @@ export const getProfile      = (id) => {
 export const stopEditLine    = (id,source,text) =>{
     return (dispatch) => {
         if(source==='status') {
-            dispatch(sendingEditLine(id,source));
             aXiOs.put(`/profile/status`, {status: text})
                 .then((resp) => {
                     if (resp.data.resultCode === 0) {
-                        dispatch(cancelEditLine(source));
                         getProfile(id)(dispatch);
                     }
                 })

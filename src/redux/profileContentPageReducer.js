@@ -1,16 +1,13 @@
 import {
-    CANCEL_EDIT_LINE,
     F_ADD,
     getAva,
     getText,
-    PROFILE_CONTENT, SENDING_EDIT_LINE,
+    PROFILE_CONTENT,
     SET_LOADING_P,
     SET_PROFILE,
     SET_STATUS,
     SET_TEXT,
     setText,
-    START_EDIT_LINE, STOP_EDIT_LINE,
-    UPDATE_EDIT_LINE
 } from "./utils";
 
 let initState = {
@@ -47,38 +44,7 @@ let initState = {
 const profileContentPageReducer = (state = initState, action) => {
     let stateCopy = state;
 
-    if(action.type===START_EDIT_LINE) {
-        if(state.id===action.id) {
-            stateCopy = {
-                ...state,
-                editValue: action.source,
-                editText: state[action.source]
-            };
-        }
-    }else if(action.type===UPDATE_EDIT_LINE) {
-        if(state.id===action.id) {
-            stateCopy = {
-                ...state,
-                editText: action.val
-            };
-        }
-    }else if(action.type===CANCEL_EDIT_LINE) {
-        if(action.source===state.editValue)
-            stateCopy = {
-                ...state,
-                editValue: undefined,
-                editText: '',
-                isSending: false
-            };
-    }else if(action.type===SENDING_EDIT_LINE) {
-        if (state.id===action.id && action.source === state.editValue) {
-            stateCopy = {
-                ...state,
-                isSending: true
-            };
-            state[action.source] = 'sending...';
-        }
-    }else if(action.type===SET_TEXT
+    if(action.type===SET_TEXT
        && action.from === PROFILE_CONTENT) {
         stateCopy = {...state};
         setText(stateCopy, action.text);
