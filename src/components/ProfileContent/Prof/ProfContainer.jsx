@@ -9,7 +9,7 @@ const mapStateToProps = (state,ownProps) => {
     return {
         text                     : "",
         loading                  : State.loading,
-        status                   : State.status,
+        aboutme                  : State.aboutme,
         lookingForAJob           : State.lookingForAJob,
         lookingForAJobDescription: State.lookingForAJobDescription,
         fullName                 : State.fullName,

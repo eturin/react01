@@ -2,10 +2,10 @@
     display: grid;
     grid-template-areas:
             "aa nn dj"
-            "aa ss jj"
+            "aa st jj"
             "aa ss jj"
             "aa ss jj";
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 5fr 1fr;
     grid-template-columns: 150px auto auto;
 }
 .AvatarImg{
@@ -14,7 +14,8 @@
 }
 .Avatar    { grid-area: aa;}
 .Name      { grid-area: nn; font-weight: bold;}
-.Status    { grid-area: ss;}
+.Status    { grid-area: st;}
+.About     { grid-area: ss;}
 .Img {width: 15px;}
 
 .Contacts  {

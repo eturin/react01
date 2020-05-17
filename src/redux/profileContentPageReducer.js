@@ -1,4 +1,17 @@
-import {F_ADD, getAva, getText, PROFILE_CONTENT, SET_LOADING_P, SET_PROFILE, SET_TEXT, setText} from "./utils";
+import {
+    CANCEL_EDIT_LINE,
+    F_ADD,
+    getAva,
+    getText,
+    PROFILE_CONTENT, SENDING_EDIT_LINE,
+    SET_LOADING_P,
+    SET_PROFILE,
+    SET_STATUS,
+    SET_TEXT,
+    setText,
+    START_EDIT_LINE, STOP_EDIT_LINE,
+    UPDATE_EDIT_LINE
+} from "./utils";
 
 let initState = {
     mPosts: [
@@ -11,6 +24,10 @@ let initState = {
     loading: false,
     text: "",
     status: "status",
+    isSending: false,
+    editText:'',
+    editValue:undefined,
+    aboutme: "",
     lookingForAJob: false,
     lookingForAJobDescription: "Хоче писать react",
     fullName: "Абр`ам",
@@ -30,7 +47,38 @@ let initState = {
 const profileContentPageReducer = (state = initState, action) => {
     let stateCopy = state;
 
-    if(action.type===SET_TEXT
+    if(action.type===START_EDIT_LINE) {
+        if(state.id===action.id) {
+            stateCopy = {
+                ...state,
+                editValue: action.source,
+                editText: state[action.source]
+            };
+        }
+    }else if(action.type===UPDATE_EDIT_LINE) {
+        if(state.id===action.id) {
+            stateCopy = {
+                ...state,
+                editText: action.val
+            };
+        }
+    }else if(action.type===CANCEL_EDIT_LINE) {
+        if(action.source===state.editValue)
+            stateCopy = {
+                ...state,
+                editValue: undefined,
+                editText: '',
+                isSending: false
+            };
+    }else if(action.type===SENDING_EDIT_LINE) {
+        if (state.id===action.id && action.source === state.editValue) {
+            stateCopy = {
+                ...state,
+                isSending: true
+            };
+            state[action.source] = 'sending...';
+        }
+    }else if(action.type===SET_TEXT
        && action.from === PROFILE_CONTENT) {
         stateCopy = {...state};
         setText(stateCopy, action.text);
@@ -45,13 +93,20 @@ const profileContentPageReducer = (state = initState, action) => {
                 mPosts                   : state.mPosts,
                 text                     : state.text,
                 loading                  : false,
-                status                   : action.obj.aboutMe,
+                aboutme                  : action.obj.aboutMe,
+                status                   : "",
                 id                       : action.obj.userId,
                 lookingForAJob           : action.obj.lookingForAJob,
                 lookingForAJobDescription: action.obj.lookingForAJobDescription,
                 fullName                 : action.obj.fullName,
                 contacts                 : action.obj.contacts,
-                large: action.obj.photos.large!=null ? action.obj.photos.large: action.obj.photos.small,
+                large: action.obj.photos.large!=null ? action.obj.photos.large: action.obj.photos.small
+            };
+    }else if(action.type === SET_STATUS){
+        if(action.id === state.id)
+            stateCopy = {
+                ...state,
+                status: action.status
             };
     }else if(action.type === SET_LOADING_P)
         stateCopy = {

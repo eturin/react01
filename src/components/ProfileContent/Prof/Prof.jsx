@@ -1,5 +1,7 @@
 import React from "react";
 import css from './Prof.module.css';
+import EditLine from "../EditLine/EditLine";
+import EditLineContainer from "../EditLine/EditLineContainer";
 
 class Prof extends React.Component {
     componentDidMount() {
@@ -36,7 +38,8 @@ class Prof extends React.Component {
                     </div>
 
                     <div className={css.Name}>{this.props.fullName}</div>
-                    <div className={css.Status}><b>Обо мне: </b>{this.props.status}</div>
+                    <div className={css.Status}><EditLineContainer source='status' /></div>
+                    <div className={css.About}><b>Обо мне: </b>{this.props.aboutme}</div>
 
                     <div className={css.DJob}>Предпрочтения:</div>
                     <div
