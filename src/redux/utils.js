@@ -1,4 +1,5 @@
 import Axios from "axios";
+import {dispatch} from "../storeOld";
 
 export const getAva  = (state) => state.ava;
 export const setText = (state,text) => { state.text = text; };
@@ -103,6 +104,48 @@ export const authMe          = () => {
                     alert("ERR: auth me: " + error.response.data.message)
                 } catch (e) {
                     alert("ERR: auth me!")
+                }
+            })
+    }
+}
+export const logIn           = (data) => {
+    return (dispatch) => {
+        aXiOs.post(`auth/login`,
+            {
+                    email: data.login,
+                    password: data.pwd,
+                    rememberMe: data.rememberMe,
+                    captcha: data.captcha
+                })
+            .then((resp) => {
+                if (resp.data.resultCode === 0)
+                    authMe()(dispatch);
+                else
+                    alert(resp.data.messages)
+            })
+            .catch(error => {
+                try {
+                    alert("ERR: login: " + error.response.data.message)
+                } catch (e) {
+                    alert("ERR: login!")
+                }
+            })
+    }
+}
+export const logOut          = () =>{
+    return (dispatch) => {
+        aXiOs.post(`auth/logout`)
+            .then((resp) => {
+                if (resp.data.resultCode === 0)
+                    authMe()(dispatch);
+                else
+                    alert(resp.data.messages)
+            })
+            .catch(error => {
+                try {
+                    alert("ERR: logout: " + error.response.data.message)
+                } catch (e) {
+                    alert("ERR: logout!")
                 }
             })
     }

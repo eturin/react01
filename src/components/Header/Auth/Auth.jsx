@@ -1,6 +1,7 @@
 import React from "react";
 import css from './Auth.module.css'
 import {NavLink} from "react-router-dom";
+import {logOut} from "../../../redux/utils";
 
 class Auth extends React.Component{
     componentDidMount() {
@@ -15,8 +16,14 @@ class Auth extends React.Component{
 
         if(this.props.login === undefined)
             mJSX.push(<NavLink key={0} className={ css.Link } to='/login'>Login</NavLink>);
-        else
-            mJSX.push(<NavLink key={this.props.id} className={css.Link} to={`/profile/${this.props.id}`}>{this.props.login}</NavLink>);
+        else {
+            mJSX.push(<>
+                        <NavLink key={this.props.id} className={css.Link}
+                               to={`/profile/${this.props.id}`}>{this.props.login}</NavLink>
+                        <span key={1} onClick={this.props.logOut}> Выйти</span>
+                      </>
+                );
+        }
 
         return (
             <div className={ css.Auth }>
