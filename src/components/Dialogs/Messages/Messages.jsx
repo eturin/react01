@@ -78,5 +78,4 @@ const NewReduxForm = reduxForm({
     form: 'NewMessage' //уникальное имя формы в state
 })(New);
 
-//<NewContainer />
 export  default Messages;
