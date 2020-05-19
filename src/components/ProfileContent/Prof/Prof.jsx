@@ -1,6 +1,5 @@
 import React from "react";
 import css from './Prof.module.css';
-import EditLine from "../EditLine/EditLine";
 import EditLineContainer from "../EditLine/EditLineContainer";
 
 class Prof extends React.Component {

@@ -1,10 +1,10 @@
 import New from "./New";
 import {connect} from "react-redux";
-import {DIALOGS, f_add, PROFILE_CONTENT, set_text} from "../../redux/utils";
+
 
 const mapStateToProps = (state) =>{
-    let from = window.location.pathname.split('/')[1]==='profile' ? PROFILE_CONTENT : DIALOGS;
-    let text = from === PROFILE_CONTENT ? state.ProfileContentPage.text: state.DialogsPage.text;
+    let from = window.location.pathname.split('/')[1]==='profile' ? 'PROFILE_CONTENT' : 'DIALOGS';
+    let text = from === 'PROFILE_CONTENT' ? state.ProfileContentPage.text: state.DialogsPage.text;
 
     return {
         from: from,
@@ -12,21 +12,21 @@ const mapStateToProps = (state) =>{
     };
 };
 const mapDispatchToProps = (dispatch) =>{
-    let from = window.location.pathname.split('/')[1]==='profile' ? PROFILE_CONTENT : DIALOGS;
+    let from = window.location.pathname.split('/')[1]==='profile' ? 'PROFILE_CONTENT' : 'DIALOGS';
 
     const fAdd  = () => {
-        let action = f_add(from);
-        dispatch(action);
+        /*let action = f_add(from);
+        dispatch(action);*/
     };
     const onChange_Textarea = (event) =>{
         const text = event.target.value;
 
-        let action = set_text(text, from);
-        dispatch(action);
+        /*let action = set_text(text, from);
+        dispatch(action);*/
     };
 
     return {
-        fAdd             :fAdd,
+        //fAdd             :fAdd,
         onChange_Textarea:onChange_Textarea
     }
 };

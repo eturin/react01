@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import Auth from "./Auth";
-import {authMe, logOut} from "../../../redux/utils";
+import {authMe, logOut} from "../../../redux/AuthReducer";
 
 const mstp = (state)=>{
     return {

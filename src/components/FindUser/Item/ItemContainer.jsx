@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {Follow_UnFollow} from "../../../redux/utils";
+import {Follow_UnFollow} from "../../../redux/findUserReducer";
 import Item from "./Item";
 
 const mapStateToProps   = (state,ownProps) =>{

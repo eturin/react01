@@ -4,21 +4,39 @@ import css from './Dialogs.module.css';
 import Item from "./Item/Item";
 import MessagesContainer from "./Messages/MessagesContainer";
 
-const Dialogs = (props) => {
-    let mJSXPeople = props.mPeople.map(x => <Item name={x.name} key={x.id} id={x.id}  img={x.img}/>);
 
-    const MC=withRouter(MessagesContainer);
-    let mJSXRoute  = props.mPeople.map(x => <Route path={`/dialogs/${x.id}`} key={x.id} render={()=> <MC />} /> );
+class Dialogs extends React.Component{
+    componentDidMount() {
+        if(this.props.Dialogs.length===0)
+            this.props.getDialogs();
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(!this.props.loading
+          && this.props.Dialogs.length===0)
+            this.props.getDialogs();
+    }
 
-    return (
-            <div className={ css.Dialogs }>
-                <div className={ css.Names }>
-                    <span>Беседы</span>
-                    { mJSXPeople }
+    render () {
+        if(this.props.loading)
+            return <p className={css.Loading}><img className={css.ImgBack} alt='wait' src='/loading.gif'/></p>;
+         else{
+            let mJSXPeople = this.props.Dialogs.map(x => <Item key={x.id} {...x}/>);
+
+            const MC = withRouter(MessagesContainer);
+            let mJSXRoute = this.props.Dialogs.map(x => <Route path={`/dialogs/${x.id}`} key={x.id}
+                                                               render={() => <MC/>}/>);
+
+            return (
+                <div className={css.Dialogs}>
+                    <div className={css.Names}>
+                        <span>Беседы</span>
+                        {mJSXPeople}
+                    </div>
+                    {mJSXRoute}
                 </div>
-                { mJSXRoute }
-            </div>
-    );
+            );
+        }
+    }
 }
 
 export default Dialogs;

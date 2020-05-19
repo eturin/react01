@@ -6,10 +6,10 @@ import Items from "./Items/Items";
 const Posts = (props)=>{
     return (
         <div>
-            <NewContainer  />
+
             <Items mPosts={ props.mPosts }/>
         </div>
     );
 }
-
+//<NewContainer  />
 export default Posts;

@@ -1,6 +1,6 @@
 import Login from "./Login";
 import {connect} from "react-redux";
-import {logIn} from "../../redux/utils";
+import {logIn} from "../../redux/AuthReducer";
 
 const mstp=(state) =>{
     return {

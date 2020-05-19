@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import FindUser from "./FindUser";
-import {getMore, setCount, setPage} from "../../redux/utils";
+import {getMore, setCount, setPage} from "../../redux/findUserReducer";
 
 
 const mapStateToProps   = (state, ownProps) =>{

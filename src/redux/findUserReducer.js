@@ -1,4 +1,10 @@
-import {ADD_USERS, FOLLOW, IS_WATING_FOLLOW, SET_COUNT, SET_PAGE} from "./utils";
+import {aXiOs} from "./utils";
+
+export const ADD_USERS        ='AddUsers';
+export const SET_PAGE         ='SetPage';
+export const SET_COUNT        ='SetCount';
+export const FOLLOW           ='onFollow';
+export const IS_WATING_FOLLOW ='isWatingFollow';
 
 let initState ={
     count  : 3,
@@ -63,3 +69,62 @@ const findUserReducer = (state = initState, action) =>{
 }
 
 export default findUserReducer;
+
+//action creaters
+export const onFollow       = (id,isFollow)                       => ({ type: FOLLOW           , id:id, isFollow:isFollow                         });
+export const isWatingFollow = (id)                                => ({ type: IS_WATING_FOLLOW , id:id                                            });
+export const addUsers       = (page, mUsers,totalCount)           => ({ type: ADD_USERS        , page:page, mUsers:mUsers, totalCount:totalCount  });
+export const setPage        = (Page)                              => ({ type: SET_PAGE         , Page:Page                                        });
+export const setCount       = (count)                             => ({ type: SET_COUNT        , count:count                                      });
+
+//thunk creaters
+export const Follow_UnFollow = (isFollow,id) => {
+    return (dispatch) => {
+        dispatch(isWatingFollow(id));
+        if(isFollow)
+            aXiOs.post(`follow/${id}`, {})
+                .then(resp => {
+                    if(resp.data.resultCode===0)
+                        dispatch(onFollow(id,isFollow));
+                    else
+                        alert(resp.data.messages)
+                })
+                .catch(error => {
+                    try {
+                        alert("ERR: follow: " + error.response.data.message)
+                    } catch (e) {
+                        alert("ERR: follow!")
+                    }
+                });
+        else
+            aXiOs.delete(`follow/${id}`)
+                .then(resp => {
+                    if(resp.data.resultCode===0)
+                        dispatch(onFollow(id,isFollow));
+                    else
+                        alert(resp.data.messages)
+                })
+                .catch(error => {
+                    try {
+                        alert("ERR: follow: " + error.response.data.message)
+                    } catch (e) {
+                        alert("ERR: follow!")
+                    }
+                });
+    }
+}
+export const getMore         = (count,page) => {
+    return (dispatch) => {
+        aXiOs.get(`users?page=${page}&count=${count}`)
+            .then((resp)=>{
+                dispatch(addUsers(page, resp.data.items, resp.data.totalCount));
+            })
+            .catch(error => {
+                try {
+                    alert("Page (" + page + "): " + error.response.data.message)
+                }catch (e) {
+                    alert("Page (" + page + "): error")
+                }
+            });
+    }
+}

@@ -1,6 +1,6 @@
 import EditLine from "./EditLine";
 import {connect} from "react-redux";
-import {stopEditLine} from "../../../redux/utils";
+import {stopEditLine} from "../../../redux/profileContentPageReducer";
 
 const mstp = (state,props) =>{
     return {

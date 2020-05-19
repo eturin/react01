@@ -1,7 +1,7 @@
 import React from "react";
 import css from './Auth.module.css'
 import {NavLink} from "react-router-dom";
-import {logOut} from "../../../redux/utils";
+
 
 class Auth extends React.Component{
     componentDidMount() {

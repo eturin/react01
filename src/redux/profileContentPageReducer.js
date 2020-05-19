@@ -1,14 +1,8 @@
-import {
-    F_ADD,
-    getAva,
-    getText,
-    PROFILE_CONTENT,
-    SET_LOADING_P,
-    SET_PROFILE,
-    SET_STATUS,
-    SET_TEXT,
-    setText,
-} from "./utils";
+import {aXiOs} from "./utils";
+
+export const SET_PROFILE      ='SetProfile';
+export const SET_STATUS       ='SetStatus';
+export const SET_LOADING_P    ='SetLoadingProfile';
 
 let initState = {
     mPosts: [
@@ -38,13 +32,13 @@ let initState = {
         youtube: "https://youtube.com",
         mainLink: "https://mainLink.com"
     },
-    large: "/ava.jpeg"
+    img: "/ava.jpeg"
 };
 
 const profileContentPageReducer = (state = initState, action) => {
     let stateCopy = state;
 
-    if(action.type===SET_TEXT
+    /*if(action.type===SET_TEXT
        && action.from === PROFILE_CONTENT) {
         stateCopy = {...state};
         setText(stateCopy, action.text);
@@ -53,7 +47,8 @@ const profileContentPageReducer = (state = initState, action) => {
         stateCopy = {...state};
         fAddPost(stateCopy);
         stateCopy.mPosts = [...stateCopy.mPosts];
-    }else if(action.type === SET_PROFILE){
+    }else*/
+    if(action.type === SET_PROFILE){
         if(action.id === state.id)
             stateCopy = {
                 mPosts                   : state.mPosts,
@@ -86,7 +81,7 @@ const profileContentPageReducer = (state = initState, action) => {
     return stateCopy;
 }
 
-export const getPosts = (state) => state.mPosts;
+/*export const getPosts = (state) => state.mPosts;
 export const fAddPost = (state) => {
     let mPosts=getPosts(state);
     mPosts.push(
@@ -97,6 +92,61 @@ export const fAddPost = (state) => {
             cnt : 0
         });
     setText(state,'');
-};
+};*/
 
 export default profileContentPageReducer;
+
+//action creaters
+export const setProfile     = (id,obj)                            => ({ type: SET_PROFILE      , id: id, obj:obj                                  });
+export const setStatus      = (id,status)                         => ({ type: SET_STATUS       , id: id, status:status                            });
+export const setLoadinProf  = (id)                                => ({ type: SET_LOADING_P    , id: id                                           });
+
+//thunk creaters
+export const getProfile      = (id) => {
+    id=parseInt(id);
+    return (dispatch) => {
+        dispatch(setLoadinProf(id));
+        aXiOs.get(`profile/${id}`)
+            .then((resp) => {
+                dispatch(setProfile(id, resp.data));
+                aXiOs.get(`profile/status/${id}`)
+                    .then((resp) => {
+                        dispatch(setStatus(id, resp.data))
+                    })
+                    .catch(error => {
+                        try {
+                            alert("ERR: get status (" + id + "): " + error.response.data.message)
+                        } catch (e) {
+                            alert("ERR: get status (" + id + ")!")
+                        }
+                    });
+            })
+            .catch(error => {
+                try {
+                    alert("ERR: get profile (" + id + "): " + error.response.data.message)
+                } catch (e) {
+                    alert("ERR: get profile (" + id + ")!")
+                }
+            });
+
+    }
+}
+export const stopEditLine    = (id,source,text) =>{
+    return (dispatch) => {
+        if(source==='status') {
+            aXiOs.put(`/profile/status`, {status: text})
+                .then((resp) => {
+                    if (resp.data.resultCode === 0) {
+                        getProfile(id)(dispatch);
+                    }
+                })
+                .catch(error => {
+                    try {
+                        alert("ERR: update status: " + error.response.data.message)
+                    } catch (e) {
+                        alert("ERR: update status!")
+                    }
+                })
+        }
+    }
+}
