@@ -1,4 +1,4 @@
-import {aXiOs} from "./utils";
+import {aXiOs} from "../components/UTILS/utils";
 import {dispatch} from "../storeOld";
 
 export const SET_LOADING_DIALOGS = 'SetLoadingDialogs';

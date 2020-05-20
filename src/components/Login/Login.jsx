@@ -2,22 +2,26 @@ import React from "react";
 import css from './Login.module.css'
 import {Redirect} from "react-router";
 import {Field, reduxForm} from "redux-form";
+import {requirdField} from "../UTILS/utils";
+import {Input} from "../UTILS/Control";
 
 const LoginForm =(props)=>{
     return (
         <form onSubmit={props.handleSubmit}>
             <div className={css.Form}>
-                <div className={css.Name}><Field component='input'
+                <div className={css.Name}><Field component={Input}
                                                  name='login'
                                                  type='text'
+                                                 validate={[requirdField]}
                                                  placeholder='Login'
                                                  title='Имя'/></div>
-                <div className={css.Pass}><Field component='input'
+                <div className={css.Pass}><Field component={Input}
                                                  name='pwd'
                                                  type='password'
+                                                 validate={[requirdField]}
                                                  placeholder='Password'
                                                  title='Пароль'/></div>
-                <div className={css.Rem}><Field component='input'
+                <div className={css.Rem}><Field component={Input}
                                                 name='remembeMe'
                                                 type='checkbox'
                                                 title='Запомнить меня'/>Запомнить меня </div>

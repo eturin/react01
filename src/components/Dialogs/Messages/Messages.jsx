@@ -2,7 +2,10 @@ import React, {Component} from "react";
 import css from './Messages.module.css'
 import Message from "../Message/Message";
 import {Field, reduxForm} from "redux-form";
+import {requirdField, maxLength} from "../../UTILS/utils";
+import { Textarea } from "../../UTILS/Control";
 
+const maxLength10 = maxLength(10);
 
 class Messages extends React.Component{
     componentDidMount() {
@@ -61,8 +64,9 @@ class New extends Component {
         return (
             <form onSubmit={this.props.handleSubmit}>
                 <div className={css.NewPost}>
-                    <Field component='textarea'
+                    <Field component={Textarea}
                            name='body'
+                           validate={[requirdField, maxLength10]}
                            placeholder="Текст нового сообщения"/>
                     <Field component='input'
                            type='text'

@@ -1,4 +1,4 @@
-import {aXiOs} from "./utils";
+import {aXiOs} from "../components/UTILS/utils";
 
 export const ADD_USERS        ='AddUsers';
 export const SET_PAGE         ='SetPage';

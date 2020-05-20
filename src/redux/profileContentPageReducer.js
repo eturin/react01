@@ -1,4 +1,4 @@
-import {aXiOs} from "./utils";
+import {aXiOs} from "../components/UTILS/utils";
 
 export const SET_PROFILE      ='SetProfile';
 export const SET_STATUS       ='SetStatus';

@@ -1,4 +1,4 @@
-import {aXiOs} from './utils'
+import {aXiOs} from '../components/UTILS/utils'
 
 export const SET_ME           ='SetMe';
 export const SET_LOADING_ME   ='SetLoadingMe';
