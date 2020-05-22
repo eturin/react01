@@ -1,4 +1,5 @@
 import {aXiOs} from '../components/UTILS/utils'
+import {stopSubmit} from 'redux-form'
 
 export const SET_ME           ='SetMe';
 export const SET_LOADING_ME   ='SetLoadingMe';
@@ -67,7 +68,6 @@ export const authMe          = () => {
     }
 }
 export const logIn           = (data) => {
-    debugger
     return (dispatch) => {
         aXiOs.post(`auth/login`,
             {
@@ -77,19 +77,27 @@ export const logIn           = (data) => {
                 captcha: data.captcha
             })
             .then((resp) => {
-                if (resp.data.resultCode === 0)
+                if (resp.data.resultCode === 0) {
                     authMe()(dispatch);
-                else if(resp.data.resultCode === 10)
+                }else if (resp.data.resultCode === 1) {
+                    dispatch(stopSubmit('', {
+                        login: 'error',
+                        pwd: 'error',
+                        _error: resp.data.messages && resp.data.messages.length > 0 ? resp.data.messages[0] : undefined
+                    }));
+                }else if(resp.data.resultCode === 10) {
+                    dispatch(stopSubmit('', {_error: resp.data.messages && resp.data.messages.length > 0 ? resp.data.messages[0] : undefined}));
                     aXiOs.get(`security/get-captcha-url`)
-                         .then(resp =>{
-                             dispatch(setCaptha(resp.data.url));
-                         })
-                else
-                    alert(resp.data.messages)
+                        .then(resp => {
+                            dispatch(setCaptha(resp.data.url));
+                        })
+                }else {
+                    dispatch(stopSubmit('login', {_error: resp.data.messages && resp.data.messages.length > 0 ? resp.data.messages[0] : undefined}));
+                }
             })
             .catch(error => {
                 try {
-                    alert("ERR: login: " + error.response.data.message)
+                    alert("ERR: login: " + error.response.data.message[0])
                 } catch (e) {
                     alert("ERR: login!")
                 }
