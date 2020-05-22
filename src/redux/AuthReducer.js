@@ -2,6 +2,7 @@ import {aXiOs} from '../components/UTILS/utils'
 
 export const SET_ME           ='SetMe';
 export const SET_LOADING_ME   ='SetLoadingMe';
+export const SET_CAPTCHA      ='SetCaptcha';
 
 let initState = {
     loading: false,
@@ -10,24 +11,32 @@ let initState = {
         id   : undefined,
         email: undefined,
         login: undefined
-    }
+    },
+    captcha: undefined
 }
 
 const authReducer = (state = initState, action)=>{
     let copyState = state;
 
-    if(action.type === SET_ME)
+    if(action.type === SET_ME) {
         copyState = {
             ...state,
-            data: { ...action.data },
-            loading: false
+            data: {...action.data},
+            loading: false,
+            captcha: undefined
         }
-    else if(action.type === SET_LOADING_ME)
+    }else if(action.type === SET_LOADING_ME) {
         copyState = {
             ...initState,
             loading: true,
-            cnt: state.cnt+1
+            cnt: state.cnt + 1
         }
+    }else if(action.type === SET_CAPTCHA) {
+        copyState = {
+            ...state,
+            captcha: action.url
+        }
+    }
 
     return copyState;
 }
@@ -37,6 +46,7 @@ export default authReducer;
 //action creaters
 export const setMe          = (data)                              => ({ type: SET_ME           , data: data                                       })
 export const setLoadingMe   = ()                                  => ({ type: SET_LOADING_ME                                                      })
+export const setCaptha      = (url)                               => ({ type: SET_CAPTCHA      , url: url                                         })
 
 //thunk creaters
 export const authMe          = () => {
@@ -57,6 +67,7 @@ export const authMe          = () => {
     }
 }
 export const logIn           = (data) => {
+    debugger
     return (dispatch) => {
         aXiOs.post(`auth/login`,
             {
@@ -68,6 +79,11 @@ export const logIn           = (data) => {
             .then((resp) => {
                 if (resp.data.resultCode === 0)
                     authMe()(dispatch);
+                else if(resp.data.resultCode === 10)
+                    aXiOs.get(`security/get-captcha-url`)
+                         .then(resp =>{
+                             dispatch(setCaptha(resp.data.url));
+                         })
                 else
                     alert(resp.data.messages)
             })

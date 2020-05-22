@@ -1,6 +1,8 @@
 import React from "react";
 import css from './Login.module.css'
 import {Redirect} from "react-router";
+import {browserHistory} from 'react-router'
+
 import {Field, reduxForm} from "redux-form";
 import {requirdField} from "../UTILS/utils";
 import {Input} from "../UTILS/Control";
@@ -25,6 +27,15 @@ const LoginForm =(props)=>{
                                                 name='remembeMe'
                                                 type='checkbox'
                                                 title='Запомнить меня'/>Запомнить меня </div>
+
+                <div hidden={props.captcha === undefined}>
+                    <img src={props.captcha}/>
+                    <div className={css.Name}><Field component={Input}
+                                                     name='captcha'
+                                                     type='text'
+                                                     placeholder='Введите текст с картинки'
+                                                     title='captcha'/></div>
+                </div>
                 <div className={css.But}>
                     <button>Login</button>
                 </div>
@@ -38,12 +49,14 @@ const LoginReduxForm = reduxForm({
 })(LoginForm);
 
 const Login = (props)=> {
-    if(props.isAuth)
-        return <Redirect to={`/profile/${props.id}`} />
+    if(props.isAuth) {
+       return <Redirect to={`/profile/${props.id}`} />
+    }
     return (
         <div className={css.Login}>
             <h1>LOGIN</h1>
-            <LoginReduxForm onSubmit={props.logIn}/>
+            <LoginReduxForm onSubmit={props.logIn}
+                            captcha={props.captcha}/>
         </div>
     );
 }
