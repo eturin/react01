@@ -1,15 +1,13 @@
 import {connect} from "react-redux";
 import Auth from "./Auth";
-import {authMe, logOut} from "../../../redux/AuthReducer";
+import {logOut} from "../../../redux/authReducer";
 
 const mstp = (state)=>{
     return {
         id     : state.Auth.data.id,
-        login  : state.Auth.data.login,
-        loading: state.Auth.loading,
-        cnt    : state.Auth.cnt
+        login  : state.Auth.data.login
     };
 }
 
-const AuthContainer = connect(mstp, {authMe,logOut})(Auth);
+const AuthContainer = connect(mstp, {logOut})(Auth);
 export default AuthContainer;

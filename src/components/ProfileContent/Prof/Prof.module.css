@@ -29,14 +29,7 @@
 .ActiveLookingForAJobDescription {grid-area: jj; }
 .LookingForAJobDescription {grid-area: jj; color: darkgrey;}
 
-.Loading{
-    border-radius: 5px;
-    text-align: center;
-}
-.ImgBack{
-    transform: scale(-1, 1);
-    size: 30px;
-}
+
 
 
 

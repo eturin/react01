@@ -1,6 +1,7 @@
 import React from "react";
 import css from './Prof.module.css';
 import EditLineContainer from "../EditLine/EditLineContainer";
+import Loading from "../../Loading/Loading";
 
 class Prof extends React.Component {
     componentDidMount() {
@@ -17,7 +18,7 @@ class Prof extends React.Component {
 
     render() {
         if(this.props.loading)
-            return <p className={css.Loading}><img className={css.ImgBack} alt='wait' src='/loading.gif'/></p>;
+            return <Loading />;
         else{
             let mJSX = [];
             if (this.props.github != null)    mJSX.push(<div key={0} className={css.Github}>   <a href={this.props.github}    target='_blank' rel="noopener noreferrer"><img className={css.Img} src='/github.png'     alt='github'    />  </a></div>);

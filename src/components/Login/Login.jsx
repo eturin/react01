@@ -1,7 +1,6 @@
 import React from "react";
 import css from './Login.module.css'
 import {Redirect} from "react-router";
-import {browserHistory} from 'react-router'
 
 import {Field, reduxForm} from "redux-form";
 import {requirdField} from "../UTILS/utils";
@@ -50,7 +49,7 @@ const LoginReduxForm = reduxForm({
 
 const Login = (props)=> {
     if(props.isAuth) {
-       return <Redirect to={`/profile/${props.id}`} />
+       return <Redirect to={props.url} />
     }
     return (
         <div className={css.Login}>

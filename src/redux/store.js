@@ -6,10 +6,12 @@ import dialogsPageReducer        from "./dialogsPageReducer";
 import navBarReducer             from "./navBarReducer";
 import profileContentPageReducer from "./profileContentPageReducer";
 import findUserReducer           from "./findUserReducer";
-import authReducer               from "./AuthReducer";
+import authReducer               from "./authReducer";
+import appReducer                from "./appReducer";
 
 
 let reducers = combineReducers({
+    App               : appReducer,
     Auth              : authReducer,
     DialogsPage       : dialogsPageReducer,
     NavBar            : navBarReducer,

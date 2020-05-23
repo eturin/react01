@@ -53,18 +53,18 @@ export const setCaptha      = (url)                               => ({ type: SE
 export const authMe          = () => {
     return (dispatch) => {
         dispatch(setLoadingMe());
-        aXiOs.get(`auth/me`)
-            .then((resp) => {
-                if (resp.data.resultCode === 0)
-                    dispatch(setMe(resp.data.data));
-            })
-            .catch(error => {
-                try {
-                    alert("ERR: auth me: " + error.response.data.message)
-                } catch (e) {
-                    alert("ERR: auth me!")
-                }
-            })
+        return aXiOs.get(`auth/me`)
+                    .then((resp) => {
+                        if (resp.data.resultCode === 0)
+                            dispatch(setMe(resp.data.data));
+                    })
+                    .catch(error => {
+                        try {
+                            alert("ERR: auth me: " + error.response.data.message)
+                        } catch (e) {
+                            alert("ERR: auth me!")
+                        }
+                    })
     }
 }
 export const logIn           = (data) => {

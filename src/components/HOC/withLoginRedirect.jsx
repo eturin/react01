@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Redirect} from "react-router";
+import {setUrl} from "../../redux/appReducer";
 
 const mstp = (state)=>({isAuth: state.Auth.data.id!==undefined})
 
@@ -9,12 +10,14 @@ const withLoginRedirect = (Component) => {
         render() {
             if (this.props.isAuth)
                 return <Component {...this.props}/>
-            else
+            else {
+                this.props.setUrl(window.location.pathname);
                 return <Redirect to='/login' />
+            }
         }
     }
 
-    return connect(mstp)(WithRedirect);
+    return connect(mstp,{setUrl})(WithRedirect);
 }
 
 export default withLoginRedirect;

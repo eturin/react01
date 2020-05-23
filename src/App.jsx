@@ -1,6 +1,9 @@
 import React from 'react';
-import {Route} from "react-router"
+import {connect} from "react-redux";
+import {compose} from "redux";
+import {Route, withRouter} from "react-router"
 import css from './App.module.css'
+
 import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
 import Musics from "./components/Musics/Musics";
@@ -11,27 +14,46 @@ import FindUserContainer from "./components/FindUser/FindUserContainer";
 import LoginContainer from "./components/Login/LoginContainer";
 import ProfileContentContainer from "./components/ProfileContent/ProfileContentContainer";
 import withLoginRedirect from "./components/HOC/withLoginRedirect";
+import {initApp} from "./redux/appReducer";
+import Loading from "./components/Loading/Loading";
 
 
+let WithLoginProfileContentContainer = withLoginRedirect(ProfileContentContainer);
+let WithLoginDialogsContainer = withLoginRedirect(DialogsContainer);
 
-const App = (props) => {
-    let WithLoginProfileContentContainer=withLoginRedirect(ProfileContentContainer);
-    let WithLoginDialogsContainer=withLoginRedirect(DialogsContainer);
-    return (
-        <div className={css.App}>
-            <Header/>
-            <NavBar />
-            <div className={css.Content}>
-                <Route path='/profile/:id?' render={() => <WithLoginProfileContentContainer   /> }/>
-                <Route path='/dialogs'      render={() => <WithLoginDialogsContainer          /> }/>
-                <Route path='/finduser'     render={() => <FindUserContainer         /> }/>
-                <Route path='/news'         render={() => <News                      /> }/>
-                <Route path='/musics'       render={() => <Musics                    /> }/>
-                <Route path='/settings'     render={() => <Settings                  /> }/>
-                <Route path='/login'        render={() => <LoginContainer            /> }/>
+class App extends React.Component {
+    componentDidMount() {
+        this.props.initApp();
+    }
+    render(){
+        if(!this.props.inited) return <Loading />;
+
+        return (
+            <div className={css.App}>
+                <Header/>
+                <NavBar/>
+                <div className={css.Content}>
+                    <Route path='/profile/:id?' render={() => <WithLoginProfileContentContainer/>}/>
+                    <Route path='/dialogs'      render={() => <WithLoginDialogsContainer/>}/>
+                    <Route path='/finduser'     render={() => <FindUserContainer/>}/>
+                    <Route path='/news'         render={() => <News/>}/>
+                    <Route path='/musics'       render={() => <Musics/>}/>
+                    <Route path='/settings'     render={() => <Settings/>}/>
+                    <Route path='/login'        render={() => <LoginContainer/>}/>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
-export default App;
+const mstp = (state) =>{
+    return {
+        inited:state.App.isInitApp
+    };
+};
+
+export default compose(
+    withRouter,
+    connect(mstp, {initApp})
+)(App);
+

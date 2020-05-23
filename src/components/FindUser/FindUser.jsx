@@ -2,6 +2,7 @@ import React from "react";
 import css from "./FindUser.module.css";
 import ItemContainer from "./Item/ItemContainer";
 import NavUsers from './NavUsers/NavUsers'
+import Loading from "../Loading/Loading";
 
 class FindUser extends React.Component {
     constructor(props) {/*нельзя заменить на стрелочную функцию*/
@@ -17,7 +18,7 @@ class FindUser extends React.Component {
 
     render = () => {
         let mJSXItems = this.props.mUsers.map(x => <ItemContainer key={x.id} id={x.id} />);
-        const jsx = mJSXItems.length===0 ? <p className={css.Loading}><img className={css.ImgBack} src='/loading.gif'/></p>:'';
+        const jsx = mJSXItems.length===0 ? <Loading/>:'';
         return (
             <div className={css.FindUser}>
                 <p className={ css.P }>Пользователи</p>

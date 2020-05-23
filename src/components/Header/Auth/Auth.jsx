@@ -4,12 +4,7 @@ import {NavLink} from "react-router-dom";
 
 
 class Auth extends React.Component{
-    componentDidMount() {
-        if(this.props.login === undefined
-           && !this.props.loading
-           && this.props.cnt===0)
-            this.props.authMe();
-    }
+
 
     render() {
         let mJSX=[];
