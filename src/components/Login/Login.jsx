@@ -27,7 +27,7 @@ const LoginForm =(props)=>{
                                                 name='remembeMe'
                                                 type='checkbox'
                                                 title='Запомнить меня'/>Запомнить меня </div>
-                {props.error ? <div className={css.Error}>{props.error}</div>:''}
+                <div className={css.Error}>{props.error}</div>
                 <div hidden={props.captcha === undefined}>
                     <img src={props.captcha}/>
                     <div className={css.Name}><Field component={Input}

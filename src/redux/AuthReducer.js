@@ -80,15 +80,18 @@ export const logIn           = (data) => {
                 if (resp.data.resultCode === 0) {
                     authMe()(dispatch);
                 }else if (resp.data.resultCode === 1) {
-                    dispatch(stopSubmit('', {
+                    dispatch(stopSubmit('login', {
                         login: 'error',
                         pwd: 'error',
                         _error: resp.data.messages && resp.data.messages.length > 0 ? resp.data.messages[0] : undefined
                     }));
                 }else if(resp.data.resultCode === 10) {
-                    dispatch(stopSubmit('', {_error: resp.data.messages && resp.data.messages.length > 0 ? resp.data.messages[0] : undefined}));
+                    const err = resp.data.messages && resp.data.messages.length > 0 ? resp.data.messages[0] : undefined;
                     aXiOs.get(`security/get-captcha-url`)
                         .then(resp => {
+                            dispatch(stopSubmit('login', {
+                                _error: err
+                            }));
                             dispatch(setCaptha(resp.data.url));
                         })
                 }else {
