@@ -2,8 +2,9 @@ import React from "react";
 import {connect} from "react-redux";
 import {Redirect} from "react-router";
 import {setUrl} from "../../redux/appReducer";
+import {getMyID} from "../UTILS/utils";
 
-const mstp = (state)=>({isAuth: state.Auth.data.id!==undefined})
+const mstp = (state)=>({isAuth: getMyID(state)!==undefined})
 
 const withLoginRedirect = (Component) => {
     class WithRedirect extends React.Component {

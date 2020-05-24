@@ -1,9 +1,11 @@
 import {connect} from "react-redux";
 import {Follow_UnFollow} from "../../../redux/findUserReducer";
 import Item from "./Item";
+import {getUserByID} from "../../UTILS/utils";
 
 const mapStateToProps   = (state,ownProps) =>{
-    let x = state.FindUserPage.mUsers.find(x => x.id===ownProps.id);
+    //let x = state.FindUserPage.mUsers.find(x => x.id===ownProps.id);
+    let x = getUserByID(state,ownProps.id);
     return {
         key     : x.id,
         id      : x.id,
