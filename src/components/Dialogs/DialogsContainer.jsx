@@ -5,7 +5,6 @@ import {getLoadingDialogs, getStateDialogs} from "../UTILS/utils";
 
 const mapStateToProps = (state) =>{
     let id = window.location.pathname.split('/').slice(-1)[0];
-    debugger
     return {
         id     : id!=='dialogs' ? parseInt(id): undefined,
         loading: getLoadingDialogs(state),
