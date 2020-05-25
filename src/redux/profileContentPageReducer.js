@@ -38,16 +38,6 @@ let initState = {
 const profileContentPageReducer = (state = initState, action) => {
     let stateCopy = state;
 
-    /*if(action.type===SET_TEXT
-       && action.from === PROFILE_CONTENT) {
-        stateCopy = {...state};
-        setText(stateCopy, action.text);
-    }else if(action.type===F_ADD
-            && action.from === PROFILE_CONTENT) {
-        stateCopy = {...state};
-        fAddPost(stateCopy);
-        stateCopy.mPosts = [...stateCopy.mPosts];
-    }else*/
     if(action.type === SET_PROFILE){
         if(action.id === state.id)
             stateCopy = {
@@ -61,7 +51,7 @@ const profileContentPageReducer = (state = initState, action) => {
                 lookingForAJobDescription: action.obj.lookingForAJobDescription,
                 fullName                 : action.obj.fullName,
                 contacts                 : action.obj.contacts,
-                large: action.obj.photos.large!=null ? action.obj.photos.large: action.obj.photos.small
+                large                    : action.obj.photos.large!=null ? action.obj.photos.large: action.obj.photos.small
             };
     }else if(action.type === SET_STATUS){
         if(action.id === state.id)
@@ -106,28 +96,28 @@ export const getProfile      = (id) => {
     id=parseInt(id);
     return (dispatch) => {
         dispatch(setLoadinProf(id));
-        aXiOs.get(`profile/${id}`)
-            .then((resp) => {
-                dispatch(setProfile(id, resp.data));
-                aXiOs.get(`profile/status/${id}`)
+        return aXiOs.get(`profile/${id}`)
                     .then((resp) => {
-                        dispatch(setStatus(id, resp.data))
+                        dispatch(setProfile(id, resp.data));
+                        aXiOs.get(`profile/status/${id}`)
+                            .then((resp) => {
+                                dispatch(setStatus(id, resp.data))
+                            })
+                            .catch(error => {
+                                try {
+                                    alert("ERR: get status (" + id + "): " + error.response.data.message)
+                                } catch (e) {
+                                    alert("ERR: get status (" + id + ")!")
+                                }
+                            });
                     })
                     .catch(error => {
                         try {
-                            alert("ERR: get status (" + id + "): " + error.response.data.message)
+                            alert("ERR: get profile (" + id + "): " + error.response.data.message)
                         } catch (e) {
-                            alert("ERR: get status (" + id + ")!")
+                            alert("ERR: get profile (" + id + ")!")
                         }
                     });
-            })
-            .catch(error => {
-                try {
-                    alert("ERR: get profile (" + id + "): " + error.response.data.message)
-                } catch (e) {
-                    alert("ERR: get profile (" + id + ")!")
-                }
-            });
 
     }
 }

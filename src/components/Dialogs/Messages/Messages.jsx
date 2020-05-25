@@ -4,6 +4,7 @@ import Message from "../Message/Message";
 import {Field, reduxForm} from "redux-form";
 import {requirdField, maxLength} from "../../UTILS/utils";
 import { Textarea } from "../../UTILS/Control";
+import {NavLink} from "react-router-dom";
 
 const maxLength10 = maxLength(10);
 
@@ -38,7 +39,8 @@ class Messages extends React.Component{
 
             return (
                 <div className={css.Messages}>
-                    <span>Сообщения</span>
+                    <span>Диалог с </span>
+                    <span className={css.Person}><NavLink to={`/profile/${this.props.id}`}>{this.props.userName}</NavLink></span>
                     {mJSXMessages}
                     <NewReduxForm onSubmit={this.props.sendNewMessage}
                                   idDilog={this.props.id}

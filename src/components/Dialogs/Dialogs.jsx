@@ -3,17 +3,27 @@ import {Route, withRouter} from "react-router";
 import css from './Dialogs.module.css';
 import Item from "./Item/Item";
 import MessagesContainer from "./Messages/MessagesContainer";
+import {addToDilogs} from "../../redux/dialogsPageReducer";
 
 
 class Dialogs extends React.Component{
     componentDidMount() {
         if(this.props.Dialogs.length===0)
             this.props.getDialogs();
+        else if(this.props.id !== undefined
+                && this.props.Dialogs.find(x => x.id === this.props.id) === undefined) {
+            debugger
+            this.props.addToDilogs(this.props.id);
+        }
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(!this.props.loading
-          && this.props.Dialogs.length===0)
+          && this.props.Dialogs.length===0) {
             this.props.getDialogs();
+        }else if(this.props.id !== undefined
+                 && this.props.Dialogs.find(x => x.id === this.props.id) === undefined) {
+            this.props.addToDilogs(this.props.id);
+        }
     }
 
     render () {

@@ -1,20 +1,17 @@
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {getDialogs, setLoadingDialogs} from "../../redux/dialogsPageReducer";
+import {addToDilogs, getDialogs, setLoadingDialogs} from "../../redux/dialogsPageReducer";
 import {getLoadingDialogs, getStateDialogs} from "../UTILS/utils";
 
-/*const mapStateToProps = (state) =>{
-    return {
-        loading:state.DialogsPage.loading,
-        Dialogs:state.DialogsPage.Dialogs.sort((a,b)=> a.lastDialogActivityDate-b.lastDialogActivityDate)
-    };
-};*/
 const mapStateToProps = (state) =>{
+    let id = window.location.pathname.split('/').slice(-1)[0];
+    debugger
     return {
-        loading:getLoadingDialogs(state),
-        Dialogs:getStateDialogs(state)
+        id     : id!=='dialogs' ? parseInt(id): undefined,
+        loading: getLoadingDialogs(state),
+        Dialogs: getStateDialogs(state)
     };
 };
 
-const DialogsContainer = connect(mapStateToProps, {getDialogs,setLoadingDialogs})(Dialogs);
+const DialogsContainer = connect(mapStateToProps, {getDialogs,setLoadingDialogs,addToDilogs})(Dialogs);
 export default DialogsContainer;

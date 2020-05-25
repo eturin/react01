@@ -2,9 +2,10 @@ import {withRouter} from "react-router"
 import {connect} from "react-redux";
 import Prof from "./Prof";
 import {getProfile} from "../../../redux/profileContentPageReducer";
+import {getMyID, getProf} from "../../UTILS/utils";
 
 const mapStateToProps = (state,ownProps) => {
-    const State = state.ProfileContentPage;
+    const State = getProf(state);
     return {
         text                     : "",
         loading                  : State.loading,
@@ -20,7 +21,9 @@ const mapStateToProps = (state,ownProps) => {
         website                  : State.contacts.website,
         youtube                  : State.contacts.youtube,
         mainLink                 : State.contacts.mainLink,
-        large                    : State.large
+        large                    : State.large,
+        id                       : State.id,
+        myID                     : getMyID(state)
     };
 }
 

@@ -1,9 +1,11 @@
 import Friends from "./Friends";
 import {connect} from "react-redux";
+import {getFriends} from "../../UTILS/utils";
 
 const mapStateToProps = (state) =>{
-    let mFriends = state.NavBar.FriendsPage.mFriends;
-    return {mFriends:mFriends};
+    return {
+        mFriends:getFriends(state)
+    };
 }
 const mapDispatchToProps = (dispatch) =>{
     return {};

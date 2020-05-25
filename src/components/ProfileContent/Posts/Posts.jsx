@@ -1,6 +1,5 @@
 import React from "react";
 import css from './Posts.module.css'
-import NewContainer from "../../New/NewContainer";
 import Items from "./Items/Items";
 
 const Posts = (props)=>{
@@ -11,5 +10,5 @@ const Posts = (props)=>{
         </div>
     );
 }
-//<NewContainer  />
+
 export default Posts;

@@ -16,6 +16,7 @@ import ProfileContentContainer from "./components/ProfileContent/ProfileContentC
 import withLoginRedirect from "./components/HOC/withLoginRedirect";
 import {initApp} from "./redux/appReducer";
 import Loading from "./components/Loading/Loading";
+import {getInitedApp} from "./components/UTILS/utils";
 
 
 let WithLoginProfileContentContainer = withLoginRedirect(ProfileContentContainer);
@@ -48,7 +49,7 @@ class App extends React.Component {
 
 const mstp = (state) =>{
     return {
-        inited:state.App.isInitApp
+        inited: getInitedApp(state)
     };
 };
 

@@ -1,12 +1,13 @@
 import EditLine from "./EditLine";
 import {connect} from "react-redux";
 import {stopEditLine} from "../../../redux/profileContentPageReducer";
+import {getIDforDilog, getMyID, getValueForDilog} from "../../UTILS/utils";
 
 const mstp = (state,props) =>{
     return {
-        id       : state.ProfileContentPage.id,
-        myId     : state.Auth.data.id,
-        text     : state.ProfileContentPage[props.source],
+        id       : getIDforDilog(state),
+        myId     : getMyID(state),
+        text     : getValueForDilog(state,props.source),
         source   : props.source
     }
 }

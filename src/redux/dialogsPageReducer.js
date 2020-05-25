@@ -1,11 +1,12 @@
-import {aXiOs} from "../components/UTILS/utils";
-import {dispatch} from "../storeOld";
+import {aXiOs, getProf, getState} from "../components/UTILS/utils";
+import {getProfile} from "./profileContentPageReducer";
 
 export const SET_LOADING_DIALOGS = 'SetLoadingDialogs';
 export const SET_DIALOGS         = 'SetDialogs';
 export const SET_LOADING_MESSAGES= 'SetLoadingMessages';
 export const SET_MESSAGES        = 'SetMessages';
 export const SET_SENDING         = 'SetSending';
+export const ADD_TO_DILOGS       = 'AddToDilogs';
 
 let initState =  {
     loading: false,
@@ -42,7 +43,6 @@ let initState =  {
 
 const dialogsPageReducer = (state = initState, action) =>{
     let stateCopy =state;
-
     switch (action.type) {
         case SET_LOADING_DIALOGS:
             stateCopy={
@@ -78,7 +78,7 @@ const dialogsPageReducer = (state = initState, action) =>{
                 stateCopy={
                     ...state,
                     loadingMessages: false,
-                    Messages: [...action.data],
+                    Messages: [...action.data]
             };
             break;
         case SET_SENDING:
@@ -86,6 +86,20 @@ const dialogsPageReducer = (state = initState, action) =>{
                 stateCopy={
                     ...state,
                     sending: !state.sending
+                };
+            break;
+        case ADD_TO_DILOGS:
+            if(state.Dialogs.find(x => x.id === action.id) === undefined)
+                stateCopy={
+                    ...state,
+                    Dialogs: [
+                        ...state.Dialogs,
+                        {
+                            id: action.id,
+                            img: action.img,
+                            userName: action.userName
+                        }
+                        ]
                 };
             break;
     }
@@ -101,8 +115,28 @@ export const setDialogs        = (data)=>({type: SET_DIALOGS, data: data})
 export const setLoadingMessages= (id) => ({type: SET_LOADING_MESSAGES, id:id})
 export const setMessages       = (id,data)=>({type: SET_MESSAGES, id: id ,data: data})
 export const setSending        = (idDilog)=>({type: SET_SENDING, idDilog:idDilog})
+export const addToMyDilogs     = (id, img, userName) => ({type: ADD_TO_DILOGS, id:id, img:img, userName:userName});
 
 //thunk creaters
+export const addToDilogs =(id)=>{
+    return (dispatch) => {
+        aXiOs.get(`profile/${id}`)
+            .then(resp=>{
+                dispatch(addToMyDilogs(
+                    id,
+                    (resp.data.photos.large!=null ? resp.data.photos.large: resp.data.photos.small),
+                    resp.data.fullName));
+            })
+            .catch(error => {
+                try {
+                    alert("ERR: get profile (" + id + ") for dialog: " + error.response.data.message)
+                } catch (e) {
+                    alert("ERR: get profile (" + id + ")  for dialog!")
+                }
+            });
+    }
+}
+
 export const getDialogs =()=>{
     return (dispatch) =>{
         dispatch(setLoadingDialogs());
@@ -139,7 +173,6 @@ export const getMessages =(id) =>{
     }
 }
 export const sendNewMessage = (form) =>{
-    debugger
     return (dispatch) =>{
         dispatch(setSending(form.idDilog));
         aXiOs.post(`dialogs/${form.idDilog}/messages`,{body:form.body})
