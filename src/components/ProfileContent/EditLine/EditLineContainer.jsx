@@ -2,6 +2,7 @@ import EditLine from "./EditLine";
 import {connect} from "react-redux";
 import {stopEditLine} from "../../../redux/profileContentPageReducer";
 import {getIDforDilog, getMyID, getValueForDilog} from "../../UTILS/utils";
+import EditLineWithHook from "./EditLineWithHook";
 
 const mstp = (state,props) =>{
     return {
@@ -12,5 +13,5 @@ const mstp = (state,props) =>{
     }
 }
 
-const EditLineContainer = connect(mstp,{stopEditLine})(EditLine);
+const EditLineContainer = connect(mstp,{stopEditLine})(EditLineWithHook);
 export default EditLineContainer;

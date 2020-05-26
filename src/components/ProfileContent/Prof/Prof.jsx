@@ -4,6 +4,7 @@ import EditLineContainer from "../EditLine/EditLineContainer";
 import Loading from "../../Loading/Loading";
 import {NavLink} from "react-router-dom";
 
+
 class Prof extends React.Component {
     componentDidMount() {
         let id=this.props.match.params.id;
