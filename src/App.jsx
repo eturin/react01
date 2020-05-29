@@ -20,7 +20,8 @@ import {getInitedApp} from "./components/UTILS/utils";
 
 
 let WithLoginProfileContentContainer = withLoginRedirect(ProfileContentContainer);
-let WithLoginDialogsContainer = withLoginRedirect(DialogsContainer);
+let WithLoginDialogsContainer        = withLoginRedirect(DialogsContainer);
+let WithLoginSettings                = withLoginRedirect(Settings);
 
 class App extends React.Component {
     componentDidMount() {
@@ -39,7 +40,7 @@ class App extends React.Component {
                     <Route path='/finduser'     render={() => <FindUserContainer/>}/>
                     <Route path='/news'         render={() => <News/>}/>
                     <Route path='/musics'       render={() => <Musics/>}/>
-                    <Route path='/settings'     render={() => <Settings/>}/>
+                    <Route path='/settings'     render={() => <WithLoginSettings/>}/>
                     <Route path='/login'        render={() => <LoginContainer/>}/>
                 </div>
             </div>

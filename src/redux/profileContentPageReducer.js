@@ -1,8 +1,10 @@
 import {aXiOs} from "../components/UTILS/utils";
+import {dispatch} from "../storeOld";
 
 export const SET_PROFILE      ='SetProfile';
 export const SET_STATUS       ='SetStatus';
 export const SET_LOADING_P    ='SetLoadingProfile';
+export const SET_SENDING      ='SetSendingProfile';
 
 let initState = {
     mPosts: [
@@ -41,6 +43,7 @@ const profileContentPageReducer = (state = initState, action) => {
     if(action.type === SET_PROFILE){
         if(action.id === state.id)
             stateCopy = {
+                ...state,
                 mPosts                   : state.mPosts,
                 text                     : state.text,
                 loading                  : false,
@@ -59,8 +62,14 @@ const profileContentPageReducer = (state = initState, action) => {
                 ...state,
                 status: action.status
             };
+    }else if(action.type === SET_SENDING) {
+        stateCopy = {
+            ...state,
+            isSending: !state.isSending
+        }
     }else if(action.type === SET_LOADING_P)
         stateCopy = {
+            ...state,
             mPosts                   : state.mPosts,
             text                     : state.text,
             loading                  : true,
@@ -89,13 +98,14 @@ export default profileContentPageReducer;
 //action creaters
 export const setProfile     = (id,obj)                            => ({ type: SET_PROFILE      , id: id, obj:obj                                  });
 export const setStatus      = (id,status)                         => ({ type: SET_STATUS       , id: id, status:status                            });
-export const setLoadinProf  = (id)                                => ({ type: SET_LOADING_P    , id: id                                           });
+export const setLoadingProf = (id)                                => ({ type: SET_LOADING_P    , id: id                                           });
+export const setSending     = ()                                  => ({ type: SET_SENDING                                                         })
 
 //thunk creaters
 export const getProfile      = (id) => {
     id=parseInt(id);
     return (dispatch) => {
-        dispatch(setLoadinProf(id));
+        dispatch(setLoadingProf(id));
         return aXiOs.get(`profile/${id}`)
                     .then((resp) => {
                         dispatch(setProfile(id, resp.data));
@@ -138,5 +148,42 @@ export const stopEditLine    = (id,source,text) =>{
                     }
                 })
         }
+    }
+}
+
+export const sendProf = (form) =>{
+    return (dispatch) => {
+        dispatch(setSending());
+        aXiOs.put(`/profile`, {
+            userId                   : form.userId,
+            lookingForAJob           : form.lookingForAJob,
+            lookingForAJobDescription: form.lookingForAJobDescription,
+            fullName                 : form.fullName,
+            AboutMe                  : form.AboutMe,
+            contacts: {
+                github   : form.github,
+                vk       : form.vk,
+                facebook : form.facebook,
+                instagram: form.instagram,
+                twitter  : form.twitter,
+                website  : form.website,
+                youtube  : form.youtube
+            }
+            })
+            .then((resp)=>{
+                if(resp.data.resultCode===0)
+                    getProfile(form.userId)(dispatch);
+                else
+                    alert(resp.data.messages[0]);
+                dispatch(setSending());
+            })
+            .catch(error => {
+                try {
+                    alert("ERR: update profile: " + error.response.data.message)
+                } catch (e) {
+                    alert("ERR: update profile!")
+                }
+                dispatch(setSending());
+            })
     }
 }
