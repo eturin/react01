@@ -1,5 +1,4 @@
-import {aXiOs, getProf, getState} from "../components/UTILS/utils";
-import {getProfile} from "./profileContentPageReducer";
+import {aXiOs} from "../components/UTILS/utils";
 
 export const SET_LOADING_DIALOGS = 'SetLoadingDialogs';
 export const SET_DIALOGS         = 'SetDialogs';

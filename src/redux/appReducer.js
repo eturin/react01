@@ -22,6 +22,9 @@ const appReducer = (state = initState, action) =>{
                 ...state,
                 url_to_go_back_after_redirect: action.url
             }
+            break;
+        default:
+            break;
     }
 
     return copyState;

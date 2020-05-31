@@ -16,7 +16,7 @@ const EditLineWithHook = (props) =>{
     const updateText = (e) => { setText(e.target.value); };
     const onKeyDown  = (e) => {
         if(e.key==='Enter'){
-            if(text!=props.text) {
+            if(text!==props.text) {
                 props.stopEditLine(props.id, props.source, text);
             }
             setEdit(false);

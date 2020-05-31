@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect } from "react";
 import css from './EditProf.module.css'
-import {getProfile, sendProf} from "../../../redux/profileContentPageReducer";
 import Loading from "../../Loading/Loading";
 import {Field, reduxForm} from "redux-form";
 import {Input, Textarea} from "../../UTILS/Control";
@@ -20,12 +19,7 @@ const EditProf = (props) =>{
 }
 
 const EditForm = (props) =>{
-    const [disablaedDescription, f]=useState(true);
-    if(disablaedDescription === props.form_lookingForAJob)
-        f(!props.form_lookingForAJob);
-
     useEffect(()=>{
-        f(!props.prof.lookingForAJob);
         props.initialize({
             userId                   : props.id,
             fullName                 : props.prof.fullName,
@@ -94,7 +88,7 @@ const EditForm = (props) =>{
                                    type='text'
                                    title='Описаниен работы'
                                    placeholder='Описание работы'
-                                   disabled={ disablaedDescription }/>
+                                   disabled={ !props.form_lookingForAJob }/>
                         </div>
                     </div>
                     <div className={ css.Contacts }>
