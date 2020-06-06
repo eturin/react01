@@ -1,5 +1,6 @@
 import {aXiOs} from "../components/UTILS/utils";
 import {dispatch} from "../storeOld";
+import {stopSubmit} from "redux-form";
 
 export const SET_PROFILE      ='SetProfile';
 export const SET_STATUS       ='SetStatus';
@@ -156,25 +157,34 @@ export const sendProf = (form) =>{
         dispatch(setSending());
         aXiOs.put(`/profile`, {
             userId                   : form.userId,
-            lookingForAJob           : form.lookingForAJob,
-            lookingForAJobDescription: form.lookingForAJobDescription,
-            fullName                 : form.fullName,
+            lookingForAJob           : form.LookingForAJob,
+            lookingForAJobDescription: form.LookingForAJobDescription,
+            fullName                 : form.FullName,
             AboutMe                  : form.AboutMe,
             contacts: {
-                github   : form.github,
-                vk       : form.vk,
-                facebook : form.facebook,
-                instagram: form.instagram,
-                twitter  : form.twitter,
-                website  : form.website,
-                youtube  : form.youtube
+                github   : form.Github,
+                vk       : form.Vk,
+                facebook : form.Facebook,
+                instagram: form.Instagram,
+                twitter  : form.Twitter,
+                website  : form.Website,
+                youtube  : form.Youtube
             }
             })
             .then((resp)=>{
                 if(resp.data.resultCode===0)
                     getProfile(form.userId)(dispatch);
-                else
-                    alert(resp.data.messages[0]);
+                else {
+                    let inf={};
+                    for(let err of resp.data.messages){
+                        let tmp=err.match(/^(.+)\(.*?(\w+)\)$/);
+                        if(tmp !== null)
+                            inf[tmp[2]] = tmp[1];
+                        else
+                            inf['_error'] = err;
+                    }
+                    dispatch(stopSubmit('editProf', inf));
+                }
                 dispatch(setSending());
             })
             .catch(error => {

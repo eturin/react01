@@ -9,7 +9,7 @@ const mstp = (state)=>{
     return {
         id                 : getMyID(state),
         prof               : getProf(state),
-        form_lookingForAJob:selector(state,'lookingForAJob')
+        form_lookingForAJob:selector(state,'LookingForAJob')
     };
 }
 const EditProfContainer = connect(mstp,{getProfile,sendProf})(EditProf);

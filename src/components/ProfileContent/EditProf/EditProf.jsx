@@ -22,17 +22,17 @@ const EditForm = (props) =>{
     useEffect(()=>{
         props.initialize({
             userId                   : props.id,
-            fullName                 : props.prof.fullName,
+            FullName                 : props.prof.fullName,
             AboutMe                  : props.prof.aboutme,
-            lookingForAJob           : props.prof.lookingForAJob,
-            lookingForAJobDescription: props.prof.lookingForAJobDescription,
-            github                   : props.prof.contacts.github,
-            vk                       : props.prof.contacts.vk,
-            facebook                 : props.prof.contacts.facebook,
-            instagram                : props.prof.contacts.instagram,
-            twitter                  : props.prof.contacts.twitter,
-            youtube                  : props.prof.contacts.youtube,
-            website                  : props.prof.contacts.website
+            LookingForAJob           : props.prof.lookingForAJob,
+            LookingForAJobDescription: props.prof.lookingForAJobDescription,
+            Github                   : props.prof.contacts.github,
+            Vk                       : props.prof.contacts.vk,
+            Facebook                 : props.prof.contacts.facebook,
+            Instagram                : props.prof.contacts.instagram,
+            Twitter                  : props.prof.contacts.twitter,
+            Youtube                  : props.prof.contacts.youtube,
+            Website                  : props.prof.contacts.website
         });
     },[
         props.id,
@@ -62,12 +62,13 @@ const EditForm = (props) =>{
                            hidden={true}/>
                     <div className={ css.Name }>
                         <Field component={Input}
-                                  name='fullName'
+                                  name='FullName'
                                   type='text'
                                   title='Полное имя'
                                   placeholder='Полное имя' />
                     </div>
                     <div className={ css.AboutMe }>
+                        <span>Обо мне</span>
                         <Field component={Textarea}
                                name='AboutMe'
                                type='text'
@@ -78,13 +79,13 @@ const EditForm = (props) =>{
                         <div className={ css.LookingForAJob }>
                             <span>Описание работы
                                 <Field component={Input}
-                               name='lookingForAJob'
+                               name='LookingForAJob'
                                type='checkbox'
                                title='Ищу работу' /> </span>
                         </div>
                         <div className={ css.LookingForAJobDescription }>
                             <Field component={Textarea}
-                                   name='lookingForAJobDescription'
+                                   name='LookingForAJobDescription'
                                    type='text'
                                    title='Описаниен работы'
                                    placeholder='Описание работы'
@@ -96,7 +97,7 @@ const EditForm = (props) =>{
                         <div className={css.Github}>
                             <img className={css.Img} src='/github.png'     alt='github'    />
                             <Field component={Input}
-                                   name='github'
+                                   name='Github'
                                    type='text'
                                    title='github'
                                    placeholder='github' />
@@ -104,7 +105,7 @@ const EditForm = (props) =>{
                         <div className={css.Vk}>
                             <img className={css.Img} src='/vk.png'         alt='vk'        />
                             <Field component={Input}
-                                   name='vk'
+                                   name='Vk'
                                    type='text'
                                    title='vk'
                                    placeholder='vk' />
@@ -112,7 +113,7 @@ const EditForm = (props) =>{
                         <div className={css.Facebook}>
                             <img className={css.Img} src='/facebook.png'   alt='facebook'  />
                             <Field component={Input}
-                                   name='facebook'
+                                   name='Facebook'
                                    type='text'
                                    title='facebook'
                                    placeholder='facebook' />
@@ -120,7 +121,7 @@ const EditForm = (props) =>{
                         <div className={css.Instagram}>
                             <img className={css.Img} src='/instagram.jfif' alt='instagram' />
                             <Field component={Input}
-                                   name='instagram'
+                                   name='Instagram'
                                    type='text'
                                    title='instagram'
                                    placeholder='instagram' />
@@ -128,7 +129,7 @@ const EditForm = (props) =>{
                         <div className={css.Twitter}>
                             <img className={css.Img} src='/twitter.png'    alt='twitter'   />
                             <Field component={Input}
-                                   name='twitter'
+                                   name='Twitter'
                                    type='text'
                                    title='twitter'
                                    placeholder='twitter' />
@@ -136,7 +137,7 @@ const EditForm = (props) =>{
                         <div className={css.Youtube}>
                             <img className={css.Img} src='/youtгbe.jfif'   alt='youtгbe'   />
                             <Field component={Input}
-                                   name='youtube'
+                                   name='Youtube'
                                    type='text'
                                    title='youtube'
                                    placeholder='youtube' />
@@ -144,7 +145,7 @@ const EditForm = (props) =>{
                         <div className={css.Website}>
                             <img className={css.Img} src='/www.png'        alt='www'       />
                             <Field component={Input}
-                                   name='website'
+                                   name='Website'
                                    type='text'
                                    title='website'
                                    placeholder='website' />
