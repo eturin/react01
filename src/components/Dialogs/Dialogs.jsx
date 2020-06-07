@@ -3,8 +3,6 @@ import {Route, withRouter} from "react-router";
 import css from './Dialogs.module.css';
 import Item from "./Item/Item";
 import MessagesContainer from "./Messages/MessagesContainer";
-import {addToDilogs} from "../../redux/dialogsPageReducer";
-
 
 class Dialogs extends React.Component{
     componentDidMount() {

@@ -1,9 +1,9 @@
 import {aXiOs} from '../components/UTILS/utils'
 import {stopSubmit} from 'redux-form'
 
-export const SET_ME           ='SetMe';
-export const SET_LOADING_ME   ='SetLoadingMe';
-export const SET_CAPTCHA      ='SetCaptcha';
+export const SET_ME           ='auth/SetMe';
+export const SET_LOADING_ME   ='auth/SetLoadingMe';
+export const SET_CAPTCHA      ='auth/SetCaptcha';
 
 let initState = {
     loading: false,
@@ -51,77 +51,71 @@ export const setCaptha      = (url)                               => ({ type: SE
 
 //thunk creaters
 export const authMe          = () => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setLoadingMe());
-        return aXiOs.get(`auth/me`)
-                    .then((resp) => {
-                        if (resp.data.resultCode === 0)
-                            dispatch(setMe(resp.data.data));
-                    })
-                    .catch(error => {
-                        try {
-                            alert("ERR: auth me: " + error.response.data.message)
-                        } catch (e) {
-                            alert("ERR: auth me!")
-                        }
-                    })
+        try {
+            let resp = await aXiOs.get(`auth/me`);
+            if (resp.data.resultCode === 0)
+                dispatch(setMe(resp.data.data));
+        }catch (error) {
+            try {
+                alert("ERR: authMe: " + error.response.data.message)
+            } catch (e) {
+                alert("ERR: authMe: " + error)
+            }
+        }
     }
 }
 export const logIn           = (data) => {
-    return (dispatch) => {
-        aXiOs.post(`auth/login`,
-            {
+    return async (dispatch) => {
+        try {
+            let resp = await aXiOs.post(`auth/login`, {
                 email: data.login,
                 password: data.pwd,
                 rememberMe: data.rememberMe,
                 captcha: data.captcha
-            })
-            .then((resp) => {
-                if (resp.data.resultCode === 0) {
-                    authMe()(dispatch);
-                }else if (resp.data.resultCode === 1) {
-                    dispatch(stopSubmit('login', {
-                        login: 'error',
-                        pwd: 'error',
-                        _error: resp.data.messages && resp.data.messages.length > 0 ? resp.data.messages[0] : undefined
-                    }));
-                }else if(resp.data.resultCode === 10) {
-                    const err = resp.data.messages && resp.data.messages.length > 0 ? resp.data.messages[0] : undefined;
-                    aXiOs.get(`security/get-captcha-url`)
-                        .then(resp => {
-                            dispatch(stopSubmit('login', {
-                                _error: err
-                            }));
-                            dispatch(setCaptha(resp.data.url));
-                        })
-                }else {
-                    dispatch(stopSubmit('login', {_error: resp.data.messages && resp.data.messages.length > 0 ? resp.data.messages[0] : undefined}));
-                }
-            })
-            .catch(error => {
-                try {
-                    alert("ERR: login: " + error.response.data.message[0])
-                } catch (e) {
-                    alert("ERR: login!")
-                }
-            })
+            });
+            if (resp.data.resultCode === 0) {
+                authMe()(dispatch);
+            } else if (resp.data.resultCode === 1) {
+                dispatch(stopSubmit('login', {
+                    login: 'error',
+                    pwd: 'error',
+                    _error: resp.data.messages && resp.data.messages.length > 0 ? resp.data.messages[0] : undefined
+                }));
+            } else if (resp.data.resultCode === 10) {
+                const err = resp.data.messages && resp.data.messages.length > 0 ? resp.data.messages[0] : undefined;
+                resp = await aXiOs.get(`security/get-captcha-url`);
+                dispatch(stopSubmit('login', {
+                    _error: err
+                }));
+                dispatch(setCaptha(resp.data.url));
+            } else {
+                dispatch(stopSubmit('login', {_error: resp.data.messages && resp.data.messages.length > 0 ? resp.data.messages[0] : undefined}));
+            }
+        }catch (error) {
+            try {
+                alert("ERR: logIn: " + error.response.data.message)
+            } catch (e) {
+                alert("ERR: logIn: " + error)
+            }
+        }
     }
 }
 export const logOut          = () =>{
-    return (dispatch) => {
-        aXiOs.post(`auth/logout`)
-            .then((resp) => {
-                if (resp.data.resultCode === 0)
-                    authMe()(dispatch);
-                else
-                    alert(resp.data.messages)
-            })
-            .catch(error => {
-                try {
-                    alert("ERR: logout: " + error.response.data.message)
-                } catch (e) {
-                    alert("ERR: logout!")
-                }
-            })
+    return async (dispatch) => {
+        try {
+            let resp = await aXiOs.post(`auth/logout`);
+            if (resp.data.resultCode === 0)
+                authMe()(dispatch);
+            else
+                alert(resp.data.messages);
+        }catch (error) {
+            try {
+                alert("ERR: logOut: " + error.response.data.message)
+            } catch (e) {
+                alert("ERR: logOut: " + error)
+            }
+        }
     }
 }

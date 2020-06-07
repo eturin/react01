@@ -51,7 +51,7 @@ export const getUserNameForDialog = createSelector(
 export const getStateDialogs   = createSelector(
     [_getStateDialogs],
     (Dialogs)    => {
-                    return Dialogs.sort((a,b)=> a.lastDialogActivityDate-b.lastDialogActivityDate);
+                    return [...Dialogs].sort((a,b)=> a.lastDialogActivityDate-b.lastDialogActivityDate);
             }
 )
 
@@ -60,7 +60,7 @@ export const getStateMessages = createSelector(
     [_getStateMessages, _passVal],
     (obj, id) => {
 
-                    return obj.id === parseInt(id) ? obj.Messages.sort((a,b)=> a.addedAt-b.addedAt) : [];
+                    return obj.id === parseInt(id) ? [...obj.Messages].sort((a,b)=> a.addedAt-b.addedAt) : [];
             }
 )
 

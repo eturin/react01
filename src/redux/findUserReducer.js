@@ -1,10 +1,10 @@
 import {aXiOs} from "../components/UTILS/utils";
 
-export const ADD_USERS        ='AddUsers';
-export const SET_PAGE         ='SetPage';
-export const SET_COUNT        ='SetCount';
-export const FOLLOW           ='onFollow';
-export const IS_WATING_FOLLOW ='isWatingFollow';
+export const ADD_USERS        ='findUser/AddUsers';
+export const SET_PAGE         ='findUser/SetPage';
+export const SET_COUNT        ='findUser/SetCount';
+export const FOLLOW           ='findUser/onFollow';
+export const IS_WATING_FOLLOW ='findUser/isWatingFollow';
 
 let initState ={
     count  : 3,
@@ -79,52 +79,42 @@ export const setCount       = (count)                             => ({ type: SE
 
 //thunk creaters
 export const Follow_UnFollow = (isFollow,id) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(isWatingFollow(id));
-        if(isFollow)
-            aXiOs.post(`follow/${id}`, {})
-                .then(resp => {
-                    if(resp.data.resultCode===0)
-                        dispatch(onFollow(id,isFollow));
-                    else
-                        alert(resp.data.messages)
-                })
-                .catch(error => {
-                    try {
-                        alert("ERR: follow: " + error.response.data.message)
-                    } catch (e) {
-                        alert("ERR: follow!")
-                    }
-                });
-        else
-            aXiOs.delete(`follow/${id}`)
-                .then(resp => {
-                    if(resp.data.resultCode===0)
-                        dispatch(onFollow(id,isFollow));
-                    else
-                        alert(resp.data.messages)
-                })
-                .catch(error => {
-                    try {
-                        alert("ERR: follow: " + error.response.data.message)
-                    } catch (e) {
-                        alert("ERR: follow!")
-                    }
-                });
+        try {
+            if (isFollow) {
+                let resp = await aXiOs.post(`follow/${id}`, {});
+                if (resp.data.resultCode === 0)
+                    dispatch(onFollow(id, isFollow));
+                else
+                    alert(resp.data.messages);
+            } else {
+                let resp = await aXiOs.delete(`follow/${id}`);
+                if (resp.data.resultCode === 0)
+                    dispatch(onFollow(id, isFollow));
+                else
+                    alert(resp.data.messages)
+            }
+        }catch(error){
+            try {
+                alert("ERR: (un)follow: " + error.response.data.message)
+            } catch (e) {
+                alert("ERR: (un)follow: " + error)
+            }
+        }
     }
 }
 export const getMore         = (count,page) => {
-    return (dispatch) => {
-        aXiOs.get(`users?page=${page}&count=${count}`)
-            .then((resp)=>{
-                dispatch(addUsers(page, resp.data.items, resp.data.totalCount));
-            })
-            .catch(error => {
-                try {
-                    alert("Page (" + page + "): " + error.response.data.message)
-                }catch (e) {
-                    alert("Page (" + page + "): error")
-                }
-            });
+    return async (dispatch) => {
+        try{
+            let resp = await aXiOs.get(`users?page=${page}&count=${count}`);
+            dispatch(addUsers(page, resp.data.items, resp.data.totalCount));
+        }catch(error){
+            try {
+                alert("Page (" + page + "): " + error.response.data.message)
+            } catch (e) {
+                alert("Page (" + page + "): " + error)
+            }
+        }
     }
 }

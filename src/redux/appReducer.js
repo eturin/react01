@@ -1,7 +1,7 @@
 import {authMe} from "./authReducer";
 
-const INITED_APP = 'InitedAPP';
-const SET_URL    = 'SetUrl';
+const INITED_APP = 'app/InitedAPP';
+const SET_URL    = 'app/SetUrl';
 
 let initState = {
     isInitApp: false,

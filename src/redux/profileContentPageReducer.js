@@ -1,13 +1,12 @@
 import {aXiOs} from "../components/UTILS/utils";
-import {dispatch} from "../storeOld";
 import {stopSubmit} from "redux-form";
 
-export const SET_PROFILE      ='SetProfile';
-export const SET_STATUS       ='SetStatus';
-export const SET_LOADING_P    ='SetLoadingProfile';
-export const SET_SENDING      ='SetSendingProfile';
+export const SET_PROFILE      ='profileContentPage/SetProfile';
+export const SET_STATUS       ='profileContentPage/SetStatus';
+export const SET_LOADING_P    ='profileContentPage/SetLoadingProfile';
+export const SET_SENDING      ='profileContentPage/SetSendingProfile';
 
-let initState = {
+export let initState = {
     mPosts: [
         {id: 0, text: '123', img: '/predator.jpeg', cnt: 10},
         {id: 1, text: '321', img: '/predator.jpeg', cnt: 2},
@@ -105,95 +104,82 @@ export const setSending     = ()                                  => ({ type: SE
 //thunk creaters
 export const getProfile      = (id) => {
     id=parseInt(id);
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setLoadingProf(id));
-        return aXiOs.get(`profile/${id}`)
-                    .then((resp) => {
-                        dispatch(setProfile(id, resp.data));
-                        aXiOs.get(`profile/status/${id}`)
-                            .then((resp) => {
-                                dispatch(setStatus(id, resp.data))
-                            })
-                            .catch(error => {
-                                try {
-                                    alert("ERR: get status (" + id + "): " + error.response.data.message)
-                                } catch (e) {
-                                    alert("ERR: get status (" + id + ")!")
-                                }
-                            });
-                    })
-                    .catch(error => {
-                        try {
-                            alert("ERR: get profile (" + id + "): " + error.response.data.message)
-                        } catch (e) {
-                            alert("ERR: get profile (" + id + ")!")
-                        }
-                    });
-
+        try {
+            let resp = await aXiOs.get(`profile/${id}`)
+            dispatch(setProfile(id, resp.data));
+            resp = await aXiOs.get(`profile/status/${id}`)
+            dispatch(setStatus(id, resp.data));
+        }catch (error) {
+            try {
+                alert("ERR: getProfile: " + error.response.data.message)
+            } catch (e) {
+                alert("ERR: getProfile: " + error)
+            }
+        }
     }
 }
 export const stopEditLine    = (id,source,text) =>{
-    return (dispatch) => {
+    return async (dispatch) => {
         if(source==='status') {
-            aXiOs.put(`/profile/status`, {status: text})
-                .then((resp) => {
-                    if (resp.data.resultCode === 0) {
-                        getProfile(id)(dispatch);
-                    }
-                })
-                .catch(error => {
+            try {
+                let resp = await aXiOs.put(`/profile/status`, {status: text});
+                if (resp.data.resultCode === 0) {
+                    getProfile(id)(dispatch);
+                }
+            }catch(error){
                     try {
                         alert("ERR: update status: " + error.response.data.message)
                     } catch (e) {
-                        alert("ERR: update status!")
+                        alert("ERR: update status: " + error)
                     }
-                })
+            }
         }
     }
 }
 
 export const sendProf = (form) =>{
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setSending());
-        aXiOs.put(`/profile`, {
-            userId                   : form.userId,
-            lookingForAJob           : form.LookingForAJob,
-            lookingForAJobDescription: form.LookingForAJobDescription,
-            fullName                 : form.FullName,
-            AboutMe                  : form.AboutMe,
-            contacts: {
-                github   : form.Github,
-                vk       : form.Vk,
-                facebook : form.Facebook,
-                instagram: form.Instagram,
-                twitter  : form.Twitter,
-                website  : form.Website,
-                youtube  : form.Youtube
+        try {
+            let resp = await aXiOs.put(`/profile`, {
+                userId                   : form.userId,
+                lookingForAJob           : form.LookingForAJob,
+                lookingForAJobDescription: form.LookingForAJobDescription,
+                fullName                 : form.FullName,
+                AboutMe                  : form.AboutMe,
+                contacts: {
+                    github   : form.Github,
+                    vk       : form.Vk,
+                    facebook : form.Facebook,
+                    instagram: form.Instagram,
+                    twitter  : form.Twitter,
+                    website  : form.Website,
+                    youtube  : form.Youtube
+                }
+            });
+            if (resp.data.resultCode === 0)
+                getProfile(form.userId)(dispatch);
+            else {
+                let inf = {};
+                for (let err of resp.data.messages) {
+                    let tmp = err.match(/^(.+)\(.*?(\w+)\)$/);
+                    if (tmp !== null)
+                        inf[tmp[2]] = tmp[1];
+                    else
+                        inf['_error'] = err;
+                }
+                dispatch(stopSubmit('editProf', inf));
             }
-            })
-            .then((resp)=>{
-                if(resp.data.resultCode===0)
-                    getProfile(form.userId)(dispatch);
-                else {
-                    let inf={};
-                    for(let err of resp.data.messages){
-                        let tmp=err.match(/^(.+)\(.*?(\w+)\)$/);
-                        if(tmp !== null)
-                            inf[tmp[2]] = tmp[1];
-                        else
-                            inf['_error'] = err;
-                    }
-                    dispatch(stopSubmit('editProf', inf));
-                }
-                dispatch(setSending());
-            })
-            .catch(error => {
-                try {
-                    alert("ERR: update profile: " + error.response.data.message)
-                } catch (e) {
-                    alert("ERR: update profile!")
-                }
-                dispatch(setSending());
-            })
+            dispatch(setSending());
+        } catch (error) {
+            try {
+                alert("ERR: sendProf: " + error.response.data.message)
+            } catch (e) {
+                alert("ERR: sendProf: " + error)
+            }
+            dispatch(setSending());
+        }
     }
 }

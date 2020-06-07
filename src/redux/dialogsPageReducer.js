@@ -1,11 +1,11 @@
 import {aXiOs} from "../components/UTILS/utils";
 
-export const SET_LOADING_DIALOGS = 'SetLoadingDialogs';
-export const SET_DIALOGS         = 'SetDialogs';
-export const SET_LOADING_MESSAGES= 'SetLoadingMessages';
-export const SET_MESSAGES        = 'SetMessages';
-export const SET_SENDING         = 'SetSending';
-export const ADD_TO_DILOGS       = 'AddToDilogs';
+export const SET_LOADING_DIALOGS = 'dialogPage/SetLoadingDialogs';
+export const SET_DIALOGS         = 'dialogPage/SetDialogs';
+export const SET_LOADING_MESSAGES= 'dialogPage/SetLoadingMessages';
+export const SET_MESSAGES        = 'dialogPage/SetMessages';
+export const SET_SENDING         = 'dialogPage/SetSending';
+export const ADD_TO_DILOGS       = 'dialogPage/AddToDilogs';
 
 let initState =  {
     loading: false,
@@ -101,6 +101,7 @@ const dialogsPageReducer = (state = initState, action) =>{
                         ]
                 };
             break;
+        default:
     }
 
     return stateCopy;
@@ -118,73 +119,69 @@ export const addToMyDilogs     = (id, img, userName) => ({type: ADD_TO_DILOGS, i
 
 //thunk creaters
 export const addToDilogs =(id)=>{
-    return (dispatch) => {
-        aXiOs.get(`profile/${id}`)
-            .then(resp=>{
-                dispatch(addToMyDilogs(
-                    id,
-                    (resp.data.photos.large!=null ? resp.data.photos.large: resp.data.photos.small),
-                    resp.data.fullName));
-            })
-            .catch(error => {
-                try {
-                    alert("ERR: get profile (" + id + ") for dialog: " + error.response.data.message)
-                } catch (e) {
-                    alert("ERR: get profile (" + id + ")  for dialog!")
-                }
-            });
+    return async (dispatch) => {
+        try{
+            let resp = await aXiOs.get(`profile/${id}`)
+            dispatch(addToMyDilogs(id,
+                                   (resp.data.photos.large!=null ? resp.data.photos.large: resp.data.photos.small),
+                                    resp.data.fullName));
+        }catch (error) {
+            try {
+                alert("ERR: addToDilogs: " + error.response.data.message)
+            } catch (e) {
+                alert("ERR: addToDilogs: " + error)
+            }
+        }
+
     }
 }
 
 export const getDialogs =()=>{
-    return (dispatch) =>{
+    return async (dispatch) =>{
         dispatch(setLoadingDialogs());
-        aXiOs.get(`dialogs`)
-             .then(resp=>{
-                dispatch(setDialogs(resp.data));
-             })
-            .catch(error => {
+        try {
+            let resp = await aXiOs.get(`dialogs`);
+            dispatch(setDialogs(resp.data));
+        }catch(error){
                 try {
-                    alert("ERR: get dialogs: " + error.response.data.message)
+                    alert("ERR: getDialogs: " + error.response.data.message)
                 } catch (e) {
-                    alert("ERR: get dialogs!")
+                    alert("ERR: getDialogs: " + error)
                 }
-            });
+        }
     }
 }
 export const getMessages =(id) =>{
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setLoadingMessages(id));
-        aXiOs.get(`dialogs/${id}/messages`)
-            .then(resp => {
-                if(resp.data.error === null)
-                    dispatch(setMessages(id,resp.data.items))
-                else
-                    alert(resp.data.error)
-            })
-            .catch(error => {
-                try {
-                    alert("ERR: get messages: " + error.response.data.error)
-                } catch (e) {
-                    alert("ERR: get messages!")
-                }
-            });
+        try{
+            let resp = await aXiOs.get(`dialogs/${id}/messages`);
+            if(resp.data.error === null)
+                dispatch(setMessages(id,resp.data.items))
+            else
+                alert(resp.data.error)
+        }catch(error){
+            try {
+                alert("ERR: get messages: " + error.response.data.error)
+            } catch (e) {
+                alert("ERR: get messages: " + error);
+            }
+        }
     }
 }
 export const sendNewMessage = (form) =>{
-    return (dispatch) =>{
+    return async (dispatch) =>{
         dispatch(setSending(form.idDilog));
-        aXiOs.post(`dialogs/${form.idDilog}/messages`,{body:form.body})
-            .then(resp => {
-                dispatch(setSending(form.idDilog));
-                getMessages(form.idDilog)(dispatch);
-            })
-            .catch(error => {
+        try{
+            let resp = await aXiOs.post(`dialogs/${form.idDilog}/messages`,{body:form.body});
+            dispatch(setSending(form.idDilog));
+            getMessages(form.idDilog)(dispatch);
+        }catch(error){
                 try {
                     alert("ERR: send message: " + error.response.data.error)
                 } catch (e) {
-                    alert("ERR: send message!")
+                    alert("ERR: send message: " + error);
                 }
-            });
+        }
     }
 }
