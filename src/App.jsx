@@ -35,13 +35,13 @@ class App extends React.Component {
                 <Header/>
                 <NavBar/>
                 <div className={css.Content}>
-                    <Route path='/profile/:id?' render={() => <WithLoginProfileContentContainer/>}/>
-                    <Route path='/dialogs'      render={() => <WithLoginDialogsContainer/>}/>
-                    <Route path='/finduser'     render={() => <FindUserContainer/>}/>
-                    <Route path='/news'         render={() => <News/>}/>
-                    <Route path='/musics'       render={() => <Musics/>}/>
-                    <Route path='/settings'     render={() => <WithLoginSettings/>}/>
-                    <Route path='/login'        render={() => <LoginContainer/>}/>
+                    <Route path='/profile/:id?'            render={() => <WithLoginProfileContentContainer/>}/>
+                    <Route path='/dialogs'                 render={() => <WithLoginDialogsContainer/>}/>
+                    <Route path='/finduser/:cnt?/:id?'     render={() => <FindUserContainer/>}/>
+                    <Route path='/news'                    render={() => <News/>}/>
+                    <Route path='/musics'                  render={() => <Musics/>}/>
+                    <Route path='/settings'                render={() => <WithLoginSettings/>}/>
+                    <Route path='/login'                   render={() => <LoginContainer/>}/>
                 </div>
             </div>
         );

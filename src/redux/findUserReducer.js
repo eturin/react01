@@ -60,6 +60,8 @@ const findUserReducer = (state = initState, action) =>{
         );
         stateCopy = {
             ...stateCopy,
+            count    : action.cnt,
+            Page     : action.page,
             mUsers   : [...mUsers],
             totalPage: Math.ceil(action.totalCount/stateCopy.count)
         };
@@ -71,11 +73,11 @@ const findUserReducer = (state = initState, action) =>{
 export default findUserReducer;
 
 //action creaters
-export const onFollow       = (id,isFollow)                       => ({ type: FOLLOW           , id:id, isFollow:isFollow                         });
-export const isWatingFollow = (id)                                => ({ type: IS_WATING_FOLLOW , id:id                                            });
-export const addUsers       = (page, mUsers,totalCount)           => ({ type: ADD_USERS        , page:page, mUsers:mUsers, totalCount:totalCount  });
-export const setPage        = (Page)                              => ({ type: SET_PAGE         , Page:Page                                        });
-export const setCount       = (count)                             => ({ type: SET_COUNT        , count:count                                      });
+export const onFollow       = (id,isFollow)                       => ({ type: FOLLOW           , id:id, isFollow:isFollow                                  });
+export const isWatingFollow = (id)                                => ({ type: IS_WATING_FOLLOW , id:id                                                     });
+export const addUsers       = (cnt, page, mUsers,totalCount)      => ({ type: ADD_USERS        , cnt:cnt, page:page, mUsers:mUsers, totalCount:totalCount  });
+export const setPage        = (Page)                              => ({ type: SET_PAGE         , Page:Page                                                 });
+export const setCount       = (count)                             => ({ type: SET_COUNT        , count:count                                               });
 
 //thunk creaters
 export const Follow_UnFollow = (isFollow,id) => {
@@ -108,7 +110,7 @@ export const getMore         = (count,page) => {
     return async (dispatch) => {
         try{
             let resp = await aXiOs.get(`users?page=${page}&count=${count}`);
-            dispatch(addUsers(page, resp.data.items, resp.data.totalCount));
+            dispatch(addUsers(count, page, resp.data.items, resp.data.totalCount));
         }catch(error){
             try {
                 alert("Page (" + page + "): " + error.response.data.message)
