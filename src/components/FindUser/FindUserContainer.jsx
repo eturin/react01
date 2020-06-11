@@ -13,7 +13,7 @@ const mapStateToProps   = (state, ownProps) =>{
        && parseInt(ownProps.match.params.cnt)!==cnt) {
         const total = totalPage*cnt;
         cnt  = parseInt(ownProps.match.params.cnt) > 100 ? 100: parseInt(ownProps.match.params.cnt);
-        totalPage = total/cnt;
+        totalPage = Math.ceil(total/cnt);
     }
     page = parseInt(ownProps.match.params.id) ? parseInt(ownProps.match.params.id) : page;
 

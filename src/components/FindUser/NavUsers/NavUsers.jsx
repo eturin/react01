@@ -1,6 +1,7 @@
 import React from "react";
 import css from './NavUsers.module.css'
 import {NavLink} from "react-router-dom";
+import {withRouter} from "react-router";
 
 class NavUsers extends React.Component{
     constructor(props) {
@@ -23,7 +24,7 @@ class NavUsers extends React.Component{
                 { mJSXButton }
                 <span> </span>
                 <span>
-                    <select onChange={(e) => {this.props.setCount(parseInt(e.target.value))} }>
+                    <select onChange={(e) => {this.props.history.push(`/finduser/${parseInt(e.target.value)}/1`)} }>
                         <option>{this.props.countItem}</option>
                         {this.props.countItem!==3   ? <option>3</option>  :''}
                         {this.props.countItem!==10  ? <option>10</option> :''}
@@ -37,4 +38,6 @@ class NavUsers extends React.Component{
     }
 }
 
-export default NavUsers;
+
+
+export default withRouter(NavUsers);

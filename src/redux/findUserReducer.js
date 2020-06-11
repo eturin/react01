@@ -63,7 +63,7 @@ const findUserReducer = (state = initState, action) =>{
             count    : action.cnt,
             Page     : action.page,
             mUsers   : [...mUsers],
-            totalPage: Math.ceil(action.totalCount/stateCopy.count)
+            totalPage: Math.ceil(action.totalCount/action.cnt)
         };
     }
 
