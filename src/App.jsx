@@ -6,18 +6,22 @@ import css from './App.module.css'
 
 import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
-import Musics from "./components/Musics/Musics";
 import Settings from "./components/Settings/Settings";
-import News from "./components/News/News";
+
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import FindUserContainer from "./components/FindUser/FindUserContainer";
+
 import LoginContainer from "./components/Login/LoginContainer";
 import ProfileContentContainer from "./components/ProfileContent/ProfileContentContainer";
 import withLoginRedirect from "./components/HOC/withLoginRedirect";
 import {initApp} from "./redux/appReducer";
 import Loading from "./components/Loading/Loading";
 import {getInitedApp} from "./components/UTILS/utils";
+import withSuspense from "./components/HOC/withSuspense";
 
+//ленивая загрузка
+const News             =React.lazy(() => import("./components/News/News"));
+const Musics           =React.lazy(() => import("./components/Musics/Musics"));
+const FindUserContainer=React.lazy(() => import("./components/FindUser/FindUserContainer"));
 
 let WithLoginProfileContentContainer = withLoginRedirect(ProfileContentContainer);
 let WithLoginDialogsContainer        = withLoginRedirect(DialogsContainer);
@@ -37,9 +41,9 @@ class App extends React.Component {
                 <div className={css.Content}>
                     <Route path='/profile/:id?'            render={() => <WithLoginProfileContentContainer/>}/>
                     <Route path='/dialogs'                 render={() => <WithLoginDialogsContainer/>}/>
-                    <Route path='/finduser/:cnt?/:id?'     render={() => <FindUserContainer/>}/>
-                    <Route path='/news'                    render={() => <News/>}/>
-                    <Route path='/musics'                  render={() => <Musics/>}/>
+                    <Route path='/finduser/:cnt?/:id?'     render={withSuspense(FindUserContainer)}/>
+                    <Route path='/news'                    render={withSuspense(News)             }/>
+                    <Route path='/musics'                  render={withSuspense(Musics)           }/>
                     <Route path='/settings'                render={() => <WithLoginSettings/>}/>
                     <Route path='/login'                   render={() => <LoginContainer/>}/>
                 </div>
