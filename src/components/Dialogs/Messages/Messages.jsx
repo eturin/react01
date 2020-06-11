@@ -6,7 +6,7 @@ import {requirdField, maxLength} from "../../UTILS/utils";
 import { Textarea } from "../../UTILS/Control";
 import {NavLink} from "react-router-dom";
 
-const maxLength10 = maxLength(10);
+const maxLength100 = maxLength(100);
 
 class Messages extends React.Component{
     componentDidMount() {
@@ -56,19 +56,14 @@ class New extends Component {
     componentDidMount() {
         this.props.initialize({ idDilog: this.props.idDilog });
     }
-    /*componentWillReceiveProps (nextProps) {
-        if () {
-            this.props.destroy();
-            this.props.initialize({idDilog: this.props.idDilog});
-        }
-    }*/
+
     render (){
         return (
             <form onSubmit={this.props.handleSubmit}>
                 <div className={css.NewPost}>
                     <Field component={Textarea}
                            name='body'
-                           validate={[requirdField, maxLength10]}
+                           validate={[requirdField, maxLength100]}
                            placeholder="Текст нового сообщения"/>
                     <Field component='input'
                            type='text'
