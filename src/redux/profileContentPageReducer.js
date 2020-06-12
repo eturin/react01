@@ -1,10 +1,12 @@
 import {aXiOs} from "../components/UTILS/utils";
 import {stopSubmit} from "redux-form";
+import {setImg} from "./authReducer";
 
 export const SET_PROFILE      ='profileContentPage/SetProfile';
 export const SET_STATUS       ='profileContentPage/SetStatus';
 export const SET_LOADING_P    ='profileContentPage/SetLoadingProfile';
 export const SET_SENDING      ='profileContentPage/SetSendingProfile';
+export const SET_IMG          ='profileContentPage/SetImage';
 
 export let initState = {
     mPosts: [
@@ -18,8 +20,6 @@ export let initState = {
     text: "",
     status: "status",
     isSending: false,
-    editText:'',
-    editValue:undefined,
     aboutme: "",
     lookingForAJob: false,
     lookingForAJobDescription: "Хоче писать react",
@@ -39,8 +39,14 @@ export let initState = {
 
 const profileContentPageReducer = (state = initState, action) => {
     let stateCopy = state;
-
-    if(action.type === SET_PROFILE){
+    if(action.type === SET_IMG){
+        if(action.id === state.id){
+            stateCopy = {
+                ...state,
+                img                      : action.img.large!=null ? action.img.large: action.img.small
+            }
+        }
+    }else if(action.type === SET_PROFILE){
         if(action.id === state.id)
             stateCopy = {
                 ...state,
@@ -54,7 +60,7 @@ const profileContentPageReducer = (state = initState, action) => {
                 lookingForAJobDescription: action.obj.lookingForAJobDescription,
                 fullName                 : action.obj.fullName,
                 contacts                 : action.obj.contacts,
-                large                    : action.obj.photos.large!=null ? action.obj.photos.large: action.obj.photos.small
+                img                      : action.obj.photos.large!=null ? action.obj.photos.large: action.obj.photos.small
             };
     }else if(action.type === SET_STATUS){
         if(action.id === state.id)
@@ -99,9 +105,35 @@ export default profileContentPageReducer;
 export const setProfile     = (id,obj)                            => ({ type: SET_PROFILE      , id: id, obj:obj                                  });
 export const setStatus      = (id,status)                         => ({ type: SET_STATUS       , id: id, status:status                            });
 export const setLoadingProf = (id)                                => ({ type: SET_LOADING_P    , id: id                                           });
-export const setSending     = ()                                  => ({ type: SET_SENDING                                                         })
+export const setSending     = ()                                  => ({ type: SET_SENDING                                                         });
+export const setImage       = (id,img)                            => ({ type: SET_IMG          , id: id, img: img                                 });
 
 //thunk creaters
+export const sendImg         = (file,userId)=> {
+    return async (dispatch) => {
+        try {
+            let formdata = new FormData();
+            formdata.append('image',file)
+            let resp = await aXiOs.put('/profile/photo', formdata,{
+                headers:{
+                    'content-type':'multipart/form-data'
+                }
+            });
+
+            if (resp.data.resultCode === 0) {
+                debugger
+                dispatch(setImage(userId,resp.data.data.photos));
+                dispatch(setImg(userId, resp.data.data.photos.large!=null ? resp.data.data.photos.large: resp.data.data.photos.small));
+            }
+        }catch (error) {
+            try {
+                alert("ERR: sendImg: " + error.response.data.message)
+            } catch (e) {
+                alert("ERR: sendImg: " + error)
+            }
+        }
+    }
+}
 export const getProfile      = (id) => {
     id=parseInt(id);
     return async (dispatch) => {

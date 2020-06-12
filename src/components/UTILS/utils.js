@@ -18,7 +18,7 @@ export const maxLength = (cnt) =>{
 //selectors
 export const getSending        =(state)       => state.DialogsPage.sending;
 export const getLoadingDialogs =(state)       => state.DialogsPage.loading;
-export const getImgMy          =(state)       => state.ProfileContentPage.img;
+export const getImgMy          =(state)       => state.Auth.img;
 export const getLoadingMessages=(state)       => state.DialogsPage.loadingMessages;
 export const getPage           =(state)       => state.FindUserPage.Page;
 export const getTotalPage      =(state)       => state.FindUserPage.totalPage;

@@ -21,7 +21,7 @@ const mapStateToProps = (state,ownProps) => {
         website                  : State.contacts.website,
         youtube                  : State.contacts.youtube,
         mainLink                 : State.contacts.mainLink,
-        large                    : State.large,
+        large                    : State.img ? State.img : '/empty.jpeg',
         id                       : State.id,
         myID                     : getMyID(state)
     };

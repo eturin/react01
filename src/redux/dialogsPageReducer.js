@@ -174,14 +174,14 @@ export const sendNewMessage = (form) =>{
         dispatch(setSending(form.idDilog));
         try{
             let resp = await aXiOs.post(`dialogs/${form.idDilog}/messages`,{body:form.body});
-            dispatch(setSending(form.idDilog));
             getMessages(form.idDilog)(dispatch);
         }catch(error){
-                try {
-                    alert("ERR: send message: " + error.response.data.error)
-                } catch (e) {
-                    alert("ERR: send message: " + error);
-                }
+           try {
+               alert("ERR: send message: " + error.response.data.error)
+           } catch (e) {
+               alert("ERR: send message: " + error);
+           }
         }
+        dispatch(setSending(form.idDilog));
     }
 }

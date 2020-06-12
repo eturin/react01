@@ -40,7 +40,7 @@ class App extends React.Component {
                 <NavBar/>
                 <div className={css.Content}>
                     <Route path='/profile/:id?'            render={() => <WithLoginProfileContentContainer/>}/>
-                    <Route path='/dialogs'                 render={() => <WithLoginDialogsContainer/>}/>
+                    <Route path='/dialogs/:id?'            render={() => <WithLoginDialogsContainer/>}/>
                     <Route path='/finduser/:cnt?/:id?'     render={withSuspense(FindUserContainer)}/>
                     <Route path='/news'                    render={withSuspense(News)             }/>
                     <Route path='/musics'                  render={withSuspense(Musics)           }/>

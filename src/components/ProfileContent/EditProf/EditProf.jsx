@@ -3,6 +3,7 @@ import css from './EditProf.module.css'
 import Loading from "../../Loading/Loading";
 import {Field, reduxForm} from "redux-form";
 import {Input, Textarea} from "../../UTILS/Control";
+import Img from "../Img/Img";
 
 
 const EditProf = (props) =>{
@@ -54,7 +55,7 @@ const EditForm = (props) =>{
             <span className={ css.Title }>Редактирование профиля</span>
             <form onSubmit={props.handleSubmit}>
                 <div className={ css.EditProf }>
-                    <img className={ css.IMG } src={props.prof.img} />
+                    <Img img={props.img} sendImg={props.sendImg} userId={props.id}/>
                     <button disabled={props.sending} className={css.Button}>Сохранить</button>
                     <Field component={Input}
                            name='userId'

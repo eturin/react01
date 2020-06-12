@@ -18,12 +18,6 @@
     font-size: larger;
     width: 200px;
 }
-.IMG{
-    grid-area: i;
-    border-style: dotted;
-    width: 150px;
-    height: 150px;
-}
 .Name{
     grid-area: n;
     margin-top: 2px;

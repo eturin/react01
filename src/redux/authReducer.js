@@ -1,9 +1,11 @@
 import {aXiOs} from '../components/UTILS/utils'
 import {stopSubmit} from 'redux-form'
+import {setProfile, setStatus} from "./profileContentPageReducer";
 
 export const SET_ME           ='auth/SetMe';
 export const SET_LOADING_ME   ='auth/SetLoadingMe';
 export const SET_CAPTCHA      ='auth/SetCaptcha';
+export const SET_IMG          ='auth/SetImg';
 
 let initState = {
     loading: false,
@@ -13,6 +15,7 @@ let initState = {
         email: undefined,
         login: undefined
     },
+    img  : undefined,
     captcha: undefined
 }
 
@@ -37,6 +40,12 @@ const authReducer = (state = initState, action)=>{
             ...state,
             captcha: action.url
         }
+    }else if(action.type === SET_IMG){
+        if(action.id === state.data.id)
+            copyState = {
+                ...state,
+                img: action.img
+            }
     }
 
     return copyState;
@@ -48,6 +57,7 @@ export default authReducer;
 export const setMe          = (data)                              => ({ type: SET_ME           , data: data                                       })
 export const setLoadingMe   = ()                                  => ({ type: SET_LOADING_ME                                                      })
 export const setCaptha      = (url)                               => ({ type: SET_CAPTCHA      , url: url                                         })
+export const setImg         = (id,img)                            => ({ type: SET_IMG          , id: id, img:img                                  });
 
 //thunk creaters
 export const authMe          = () => {
@@ -55,8 +65,12 @@ export const authMe          = () => {
         dispatch(setLoadingMe());
         try {
             let resp = await aXiOs.get(`auth/me`);
-            if (resp.data.resultCode === 0)
+            if (resp.data.resultCode === 0) {
                 dispatch(setMe(resp.data.data));
+                const id = resp.data.data.id;
+                resp = await aXiOs.get(`profile/${id}`)
+                dispatch(setImg(id, resp.data.photos.large!=null ? resp.data.photos.large: resp.data.photos.small));
+            }
         }catch (error) {
             try {
                 alert("ERR: authMe: " + error.response.data.message)

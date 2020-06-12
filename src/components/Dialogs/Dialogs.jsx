@@ -1,5 +1,5 @@
 import React from "react";
-import {Route, withRouter} from "react-router";
+import {Route} from "react-router";
 import css from './Dialogs.module.css';
 import Item from "./Item/Item";
 import MessagesContainer from "./Messages/MessagesContainer";
@@ -8,9 +8,8 @@ class Dialogs extends React.Component{
     componentDidMount() {
         if(this.props.Dialogs.length===0)
             this.props.getDialogs();
-        else if(this.props.id !== undefined
+        else if(!!this.props.id
                 && this.props.Dialogs.find(x => x.id === this.props.id) === undefined) {
-            debugger
             this.props.addToDilogs(this.props.id);
         }
     }
@@ -18,7 +17,7 @@ class Dialogs extends React.Component{
         if(!this.props.loading
           && this.props.Dialogs.length===0) {
             this.props.getDialogs();
-        }else if(this.props.id !== undefined
+        }else if(!!this.props.id
                  && this.props.Dialogs.find(x => x.id === this.props.id) === undefined) {
             this.props.addToDilogs(this.props.id);
         }
@@ -30,9 +29,10 @@ class Dialogs extends React.Component{
          else{
             let mJSXPeople = this.props.Dialogs.map(x => <Item key={x.id} {...x}/>);
 
-            const MC = withRouter(MessagesContainer);
-            let mJSXRoute = this.props.Dialogs.map(x => <Route path={`/dialogs/${x.id}`} key={x.id}
-                                                               render={() => <MC/>}/>);
+
+            let mJSXRoute = this.props.Dialogs.map(x => <Route path={`/dialogs/${x.id}`}
+                                                               key={x.id}
+                                                               render={() => <MessagesContainer userId={x.id}/>}/>);
 
             return (
                 <div className={css.Dialogs}>
