@@ -4,7 +4,7 @@ import AuthContainer from "./Auth/AuthContainer";
 
 const Header = ()=>{
     return <div className={css.Header}>
-        <img src='/logo.png' />
+        <img src='/logo.png' alt='/logo.png'/>
         <AuthContainer />
     </div>
 }

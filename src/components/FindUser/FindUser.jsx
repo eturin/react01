@@ -5,14 +5,14 @@ import NavUsers from './NavUsers/NavUsers'
 import Loading from "../Loading/Loading";
 
 class FindUser extends React.Component {
-    constructor(props) {/*нельзя заменить на стрелочную функцию*/
+    /*constructor(props) {//нельзя заменить на стрелочную функцию
         super(props);
-    };
+    };*/
     componentDidMount = () => {
         this.props.getMore(this.props.countItem,this.props.Page);
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps.Page!=this.props.Page || prevProps.countItem!=this.props.countItem)
+        if(prevProps.Page!==this.props.Page || prevProps.countItem!==this.props.countItem)
             this.props.getMore(this.props.countItem,this.props.Page);
     }
 

@@ -7,7 +7,7 @@ import ProfContainer from "./Prof/ProfContainer";
 const ProfileContent=(props)=>{
      return (
          <div className={css.ProfileContent}>
-             <div className={css.ContentHeader}><img src='/16.jpg'/></div>
+             <div className={css.ContentHeader}><img alt='16.jpg' src='/16.jpg'/></div>
              <ProfContainer/>
              <PostsContainer/>
          </div>

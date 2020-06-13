@@ -38,7 +38,7 @@ class Prof extends React.Component {
 
             return (
                 <div className={css.Prof}>
-                    <div className={css.Avatar}><img className={css.AvatarImg} src={this.props.large}/>
+                    <div className={css.Avatar}><img className={css.AvatarImg} src={this.props.large} alt={this.props.large}/>
                         <div className={css.Contacts}>
                             {mJSX}
                         </div>

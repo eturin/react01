@@ -4,9 +4,6 @@ import {NavLink} from "react-router-dom";
 import {withRouter} from "react-router";
 
 class NavUsers extends React.Component{
-    constructor(props) {
-        super(props);
-    }
     render() {
         let mJSXButton = [];
         if(Math.max(this.props.page-5,1)!==1)

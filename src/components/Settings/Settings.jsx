@@ -1,5 +1,5 @@
 import React from "react";
-import css from './Settings.module.css'
+//import css from './Settings.module.css'
 import EditProfContainer from "../ProfileContent/EditProf/EditProfContainer";
 
 const Settings = React.memo(() => {

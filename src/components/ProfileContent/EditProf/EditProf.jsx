@@ -11,7 +11,7 @@ const EditProf = (props) =>{
     useEffect(()=>{
         if(props.id !== props.prof.id)
             props.getProfile(props.id);
-    },[props.prof.id,props.id]);
+    },[props, props.prof.id, props.id]);
 
     if(props.prof.loading)
         return <Loading />
@@ -36,6 +36,7 @@ const EditForm = (props) =>{
             Website                  : props.prof.contacts.website
         });
     },[
+        props,
         props.id,
         props.prof.fullName,
         props.prof.aboutme,

@@ -17,7 +17,6 @@ const mapStateToProps   = (state, ownProps) =>{
     }
     page = parseInt(ownProps.match.params.id) ? parseInt(ownProps.match.params.id) : page;
 
-    let total = getTotalPage(state) * getCountItem(state)
 
     return {
         Page        : page,

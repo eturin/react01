@@ -1,6 +1,5 @@
 import {aXiOs} from '../components/UTILS/utils'
 import {stopSubmit} from 'redux-form'
-import {setProfile, setStatus} from "./profileContentPageReducer";
 
 export const SET_ME           ='auth/SetMe';
 export const SET_LOADING_ME   ='auth/SetLoadingMe';

@@ -6,7 +6,7 @@ const Item = (props) => {
     return (
         <div className={css.Item}>
             <div className={css.AvaButton}>
-                <NavLink to={`/profile/${props.id}`} ><img className={css.Img} src={props.img== null ? '/empty.jpeg' : props.img}/></NavLink>
+                <NavLink to={`/profile/${props.id}`} ><img className={css.Img} src={props.img== null ? '/empty.jpeg' : props.img} alt={props.img== null ? '/empty.jpeg' : props.img}/></NavLink>
                 <button className={!props.follow ? css.ButtonActive : css.ButtonInActive}
                         disabled={props.isWating}
                         title={props.isWating ? 'Запрос отправлен': props.follow ? 'Подписаться' : 'Отписаться'}

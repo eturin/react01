@@ -173,7 +173,7 @@ export const sendNewMessage = (form) =>{
     return async (dispatch) =>{
         dispatch(setSending(form.idDilog));
         try{
-            let resp = await aXiOs.post(`dialogs/${form.idDilog}/messages`,{body:form.body});
+            await aXiOs.post(`dialogs/${form.idDilog}/messages`,{body:form.body});
             getMessages(form.idDilog)(dispatch);
         }catch(error){
            try {
