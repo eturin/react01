@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {Route, withRouter} from "react-router"
+import {Redirect, Route, Switch, withRouter} from "react-router"
 import css from './App.module.css'
 
 import Header from "./components/Header/Header";
@@ -28,9 +28,17 @@ let WithLoginDialogsContainer        = withLoginRedirect(DialogsContainer);
 let WithLoginSettings                = withLoginRedirect(Settings);
 
 class App extends React.Component {
+    error = (promiseRejectionEvent) =>{
+        alert(promiseRejectionEvent);
+    }
     componentDidMount() {
         this.props.initApp();
+        window.addEventListener('unhandledrejection',this.error);
     }
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection',this.error);
+    }
+
     render(){
         if(!this.props.inited) return <Loading />;
 
@@ -39,13 +47,17 @@ class App extends React.Component {
                 <Header/>
                 <NavBar/>
                 <div className={css.Content}>
-                    <Route path='/profile/:id?'            render={() => <WithLoginProfileContentContainer/>}/>
-                    <Route path='/dialogs/:id?'            render={() => <WithLoginDialogsContainer/>}/>
-                    <Route path='/finduser/:cnt?/:id?'     render={withSuspense(FindUserContainer)}/>
-                    <Route path='/news'                    render={withSuspense(News)             }/>
-                    <Route path='/musics'                  render={withSuspense(Musics)           }/>
-                    <Route path='/settings'                render={() => <WithLoginSettings/>}/>
-                    <Route path='/login'                   render={() => <LoginContainer/>}/>
+                    <Switch>
+                        <Route exact path='/'                  render={() => <Redirect to='/profile' />}/>
+                        <Route path='/profile/:id?'            render={() => <WithLoginProfileContentContainer/>}/>
+                        <Route path='/dialogs/:id?'            render={() => <WithLoginDialogsContainer/>}/>
+                        <Route path='/finduser/:cnt?/:id?'     render={withSuspense(FindUserContainer)}/>
+                        <Route path='/news'                    render={withSuspense(News)             }/>
+                        <Route path='/musics'                  render={withSuspense(Musics)           }/>
+                        <Route path='/settings'                render={() => <WithLoginSettings/>}/>
+                        <Route path='/login'                   render={() => <LoginContainer/>}/>
+                        <Route path='*'                        render={() => <div>404. Страница не найдена</div>} />
+                    </Switch>
                 </div>
             </div>
         );
